@@ -1,0 +1,27 @@
+"use client"
+
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import { cn } from "@/lib/utils"
+
+interface TextRevealProps {
+  text: string
+  className?: string
+}
+
+export function TextReveal({ text, className }: TextRevealProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={cn(className)}
+    >
+      {text}
+    </motion.div>
+  )
+}
