@@ -3,6 +3,9 @@ import { Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CursorFollower }  from "@/components/ui/cursor-follower"
+import { LoadingProvider } from "@/components/loading-provider"
+import LoadingScreen from "@/components/loading-screen"
+import { LoadingWrapper } from "@/components/loading-wrapper"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -19,10 +22,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={spaceGrotesk.variable}>
       <body className={`${spaceGrotesk.className} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <CursorFollower />
-          {children}
-        </ThemeProvider>
+        <LoadingProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+            <LoadingWrapper loadingComponent={<LoadingScreen />}>
+              <CursorFollower />
+              {children}
+            </LoadingWrapper>
+          </ThemeProvider>
+        </LoadingProvider>
       </body>
     </html>
   )

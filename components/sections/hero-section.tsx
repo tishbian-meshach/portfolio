@@ -25,7 +25,7 @@ export function HeroSection() {
       className="section-animated hero-section in-view relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Stripe Background Guides - Deepest layer */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 ">
         <StripeBgGuides
           columnCount={8}
           animated={true}
@@ -39,6 +39,7 @@ export function HeroSection() {
         />
       </div>
 
+      <div className="absolute inset-0 bg-black/20 z-20" />
       {/* Blue light gradient background */}
       <div className="absolute hidden inset-0 bg-gradient-to-br from-sky-500/10 via-black/10 to-transparent mix-blend-screen z-5" />
 
@@ -61,7 +62,7 @@ export function HeroSection() {
       <div className="absolute inset-0 z-10">
         <SplineViewer
           scene="https://prod.spline.design/J-8S-fPcOC05m2ew/scene.splinecode"
-          className="opacity-70"
+          className=""
           loadingAnimType="spinner-small-dark"
         />
       </div>

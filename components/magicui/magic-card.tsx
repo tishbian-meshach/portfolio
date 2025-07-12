@@ -65,10 +65,7 @@ export function MagicCard({
         }}
       />
 
-      {/* Animated border */}
-      <div className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-sky-400/20 to-transparent animate-pulse" />
-      </div>
+      
 
       {/* Content */}
       <div className="relative z-10">{children}</div>
