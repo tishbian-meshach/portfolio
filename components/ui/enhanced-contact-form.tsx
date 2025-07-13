@@ -212,7 +212,7 @@ function StarButton({ children, className, ...props }: StarButtonProps) {
     <div className="star-button-wrapper w-full relative">
       <button
         className={cn(
-          "star-button relative w-full py-3 px-4 bg-sky-400 hover:bg-transparent text-black hover:text-sky-400 font-medium rounded-md transition-all duration-300 ease-in-out border-2 border-sky-400 cursor-pointer",
+          "star-button relative w-full py-3 px-4 bg-sky-400 hover:bg-sky-50 text-black hover:text-sky-400 font-medium rounded-md transition-all duration-300 ease-in-out cursor-pointer",
           "hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]",
           "flex items-center justify-center",
           className,
