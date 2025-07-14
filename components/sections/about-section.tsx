@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { TracingBeam } from "@/components/ui/tracing-beam"
-import { TextReveal } from "@/components/magicui/text-reveal"
+import { TracingBeam } from "@/components/ui/tracing-beam";
+import { TextReveal } from "@/components/magicui/text-reveal";
 
-import { RainbowButton } from "@/components/magicui/rainbow-button"
-import { ScrollAnimation } from "@/components/ui/scroll-animation"
-import StarBorder from "@/components/ui/star-border"
-import { cn } from "@/lib/utils"
-import { Palette, Tag, Box, Monitor, BookCheck, Calendar   } from "lucide-react"
-import type React from "react"
+import { RainbowButton } from "@/components/magicui/rainbow-button";
+import { ScrollAnimation } from "@/components/ui/scroll-animation";
+import StarBorder from "@/components/ui/star-border";
+import { cn } from "@/lib/utils";
+import { Palette, Tag, Box, Monitor, BookCheck, Calendar } from "lucide-react";
+import type React from "react";
 
 const aboutContent = [
   {
@@ -32,14 +32,17 @@ const aboutContent = [
     image: "/placeholder.svg?height=400&width=600",
     badge: "Experience",
   },
-]
+];
 
 export function AboutSection() {
   return (
     <ScrollAnimation id="about" className="py-20 bg-black">
       <div className="section-content container mx-auto px-4">
         <div style={{ "--stagger-delay": "0" } as React.CSSProperties}>
-          <TextReveal text="About Me" className="text-4xl md:text-6xl font-regular text-center mb-16" />
+          <TextReveal
+            text="About Me"
+            className="text-4xl md:text-6xl font-regular text-center mb-12"
+          />
         </div>
 
         <div style={{ "--stagger-delay": "1" } as React.CSSProperties}>
@@ -50,69 +53,127 @@ export function AboutSection() {
                   <RainbowButton className="mb-4">{item.badge}</RainbowButton>
 
                   <div className="relative">
-                    <h3 className="text-xl md:text-3xl font-regular text-white mb-4">{item.title}</h3>
+                    <h3 className="text-xl md:text-3xl font-regular text-white mb-4">
+                      {item.title}
+                    </h3>
                   </div>
 
-                  <div className={cn(
-    "text-sm md:text-base font-thin prose prose-sm dark:prose-invert text-gray-300",
-    index !== 0 && "mb-8"
-  )}>
+                  <div
+                    className={cn(
+                      "text-sm md:text-base font-thin prose prose-sm dark:prose-invert text-gray-300",
+                      index !== 0 && "mb-8"
+                    )}
+                  >
                     <p className="font-thin">{item.description}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     {index === 1 && (
                       <>
-                        <StarBorder color="#38bdf8" speed="4s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="4s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
                             <Palette size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">UI/UX Design</h4>
-                          <p className="text-gray-400 font-thin text-xs">User-centered interfaces</p>
+                          <h4 className="text-white font-light mb-1">
+                            UI/UX Design
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            User-centered interfaces
+                          </p>
                         </StarBorder>
 
-                        <StarBorder color="#38bdf8" speed="5s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="5s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
                             <Tag size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">Graphic Design</h4>
-                          <p className="text-gray-400 font-thin text-xs">Visual storytelling</p>
+                          <h4 className="text-white font-light mb-1">
+                            Graphic Design
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            Visual storytelling
+                          </p>
                         </StarBorder>
 
-                        <StarBorder color="#38bdf8" speed="6s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="6s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
                             <Box size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">3D Graphics</h4>
-                          <p className="text-gray-400 font-thin text-xs">Dimensional Visualization</p>
+                          <h4 className="text-white font-light mb-1">
+                            3D Graphics
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            Dimensional Visualization
+                          </p>
                         </StarBorder>
 
-                        <StarBorder color="#38bdf8" speed="7s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="7s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
                             <Monitor size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">Web Development</h4>
-                          <p className="text-gray-400 font-thin text-xs">Interactive experiences</p>
+                          <h4 className="text-white font-light mb-1">
+                            Web Development
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            Interactive experiences
+                          </p>
                         </StarBorder>
                       </>
                     )}
 
                     {index === 2 && (
                       <>
-                        <StarBorder color="#38bdf8" speed="4s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="4s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <BookCheck  size={24} />
+                            <BookCheck size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">50+ Projects</h4>
-                          <p className="text-gray-400 font-thin text-xs">Completed</p>
+                          <h4 className="text-white font-light mb-1">
+                            50+ Projects
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            Completed
+                          </p>
                         </StarBorder>
 
-                        <StarBorder color="#38bdf8" speed="4s" thickness={2} className="w-full">
+                        <StarBorder
+                          color="#38bdf8"
+                          speed="4s"
+                          thickness={2}
+                          className="w-full"
+                        >
                           <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Calendar  size={24} />
+                            <Calendar size={24} />
                           </div>
-                          <h4 className="text-white font-light mb-1">5+ Years</h4>
-                          <p className="text-gray-400 font-thin text-xs">Experience</p>
+                          <h4 className="text-white font-light mb-1">
+                            5+ Years
+                          </h4>
+                          <p className="text-gray-400 font-thin text-xs">
+                            Experience
+                          </p>
                         </StarBorder>
                       </>
                     )}
@@ -124,5 +185,5 @@ export function AboutSection() {
         </div>
       </div>
     </ScrollAnimation>
-  )
+  );
 }

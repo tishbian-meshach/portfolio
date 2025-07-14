@@ -5,6 +5,150 @@ import { ScrollAnimation } from "@/components/ui/scroll-animation";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { DotBackground } from "@/components/ui/dot-background";
 import { images } from "@/constants/index";
+import { cn } from "@/lib/utils";
+import { AnimatedList } from "@/components/magicui/animated-list";
+
+interface SkillNotification {
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  time: string;
+}
+
+const baseSkillNotifications: SkillNotification[] = [
+  {
+    name: "User Interface Design",
+    description: "Designing clean and modern UI in Figma.",
+    icon: "📱",
+    color: "#0EA5E9",
+    time: "Just now",
+  },
+  {
+    name: "UX Research",
+    description: "Mapping user flows and behaviors.",
+    icon: "🧠",
+    color: "#F59E0B",
+    time: "15m ago",
+  },
+  {
+    name: "Prototyping",
+    description: "Interactive mockups in Framer.",
+    icon: "🎛️",
+    color: "#6366F1",
+    time: "45m ago",
+  },
+  {
+    name: "Product Strategy",
+    description: "Balancing user needs and goals.",
+    icon: "📊",
+    color: "#10B981",
+    time: "1h ago",
+  },
+  {
+    name: "AI Tools",
+    description: "Boosting workflow with AI.",
+    icon: "🤖",
+    color: "#8B5CF6",
+    time: "2h ago",
+  },
+  {
+    name: "Design Systems",
+    description: "Building reusable UI kits.",
+    icon: "🧩",
+    color: "#38BDF8",
+    time: "3h ago",
+  },
+  {
+    name: "Brand Design",
+    description: "Thumbnails, logos, and visuals.",
+    icon: "🎨",
+    color: "#F43F5E",
+    time: "4h ago",
+  },
+  {
+    name: "3D Mockups",
+    description: "Scenes and UI in Spline.",
+    icon: "🌐",
+    color: "#FF8C00",
+    time: "5h ago",
+  },
+  {
+    name: "Dev Handoff",
+    description: "Code-ready design in Next.js.",
+    icon: "💻",
+    color: "#000000",
+    time: "7h ago",
+  },
+  {
+    name: "AI Automation",
+    description: "Quick mockups via prompts.",
+    icon: "⚡",
+    color: "#22C55E",
+    time: "8h ago",
+  },
+  {
+    name: "Client Projects",
+    description: "Designing for creators & brands.",
+    icon: "🤝",
+    color: "#3B82F6",
+    time: "1 day ago",
+  },
+  {
+    name: "Problem Solving",
+    description: "Fixing UX issues with AI.",
+    icon: "🧠",
+    color: "#A855F7",
+    time: "2 days ago",
+  },
+];
+
+// Create a continuous loop by repeating the notifications multiple times
+const skillNotifications = Array.from(
+  { length: 100 },
+  () => baseSkillNotifications
+).flat();
+
+const SkillNotification = ({
+  name,
+  description,
+  icon,
+  color,
+  time,
+}: SkillNotification) => {
+  return (
+    <figure
+      className={cn(
+        "relative mx-auto min-h-fit w-full max-w-[400px] cursor-pointer overflow-hidden rounded-2xl p-4",
+        // animation styles
+        "transition-all duration-200 ease-in-out hover:scale-[103%]",
+        // light styles
+        "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+        // dark styles
+        "transform-gpu dark:bg-black/50 dark:backdrop-blur-md dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
+      )}
+    >
+      <div className="flex flex-row items-center gap-3">
+        <div
+          className="flex size-10 items-center justify-center rounded-2xl"
+          style={{
+            backgroundColor: color,
+          }}
+        >
+          <span className="text-md">{icon}</span>
+        </div>
+        <div className="flex flex-col overflow-hidden">
+          <figcaption className="flex flex-row items-center whitespace-pre text-lg font-light dark:text-white ">
+            <span className="text-sm sm:text-md">{name}</span>
+            <span className="mx-1">·</span>
+            <span className="text-xs text-gray-400">{time}</span>
+          </figcaption>
+          <p className="text-xs font-thin dark:text-white/60">{description}</p>
+        </div>
+      </div>
+    </figure>
+  );
+};
 
 export function SkillsSection() {
   return (
@@ -12,78 +156,137 @@ export function SkillsSection() {
       {/* Dot Background */}
       <DotBackground className="absolute inset-0 size-full" />
 
-      <div className="section-content container mx-auto px-4 relative z-10">
+      <div className="section-content container mx-auto px-36 relative z-10">
         <div style={{ "--stagger-delay": "0" } as React.CSSProperties}>
-          <h2 className="text-4xl md:text-6xl font-regular text-center mb-16 text-white">
+          <h2 className="text-4xl md:text-6xl font-regular text-center mb-4 text-white">
             Skills & Tools
           </h2>
+          <p className="text-base font-thin text-gray-400 text-center max-w-4xl mx-auto mb-16">
+            A showcase of the technologies, design tools, and creative skills I
+            use to bring ideas to life.
+          </p>
         </div>
 
         <div
-          className="relative flex w-full items-center justify-center h-[500px]"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
           style={{ "--stagger-delay": "1" } as React.CSSProperties}
         >
-          <OrbitingCircles
-            className="absolute"
-            radius={180}
-            reverse
-            startAngle={45}
-          >
-            <div className="p-3 rounded-full backdrop-blur-lg border border-purple-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-110 hover:rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-purple-500/50 hover:bg-gradient-to-tr hover:from-purple-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.spline />
-              </div>
-            </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-red-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-red-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-red-500/50 hover:bg-gradient-to-tr hover:from-red-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.figma />
-              </div>
-            </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-sky-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-sky-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-sky-500/50 hover:bg-gradient-to-tr hover:from-sky-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sky-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.framer />
-              </div>
-            </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-slate-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-slate-500/30 hover:scale-110 hover:-rotate-1 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-slate-500/50 hover:bg-gradient-to-tr hover:from-slate-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.nextjs />
-              </div>
-            </div>
-          </OrbitingCircles>
+          {/* Left side - Orbiting Circles */}
+          <div
+            className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0  backdrop-blur-sm overflow-hidden"
 
-          <OrbitingCircles className="absolute" radius={100} startAngle={90}>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-blue-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-blue-500/50 hover:bg-gradient-to-tr hover:from-blue-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.photoshop />
+          >
+            <div className="relative flex w-full items-center justify-center h-full">
+              <OrbitingCircles
+                className="absolute"
+                radius={180}
+                reverse
+                startAngle={45}
+              >
+                <div className="p-3 rounded-full backdrop-blur-lg border border-purple-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-110 hover:rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-purple-500/50 hover:bg-gradient-to-tr hover:from-purple-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.spline />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-red-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-red-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-red-500/50 hover:bg-gradient-to-tr hover:from-red-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.figma />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-sky-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-sky-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-sky-500/50 hover:bg-gradient-to-tr hover:from-sky-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-sky-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.framer />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-slate-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-slate-500/30 hover:scale-110 hover:-rotate-1 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-slate-500/50 hover:bg-gradient-to-tr hover:from-slate-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.nextjs />
+                  </div>
+                </div>
+              </OrbitingCircles>
+
+              <OrbitingCircles
+                className="absolute"
+                radius={100}
+                startAngle={90}
+              >
+                <div className="p-3 rounded-full backdrop-blur-lg border border-blue-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-blue-500/50 hover:bg-gradient-to-tr hover:from-blue-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.photoshop />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-violet-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-violet-500/30 hover:scale-110 hover:-rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-violet-500/50 hover:bg-gradient-to-tr hover:from-violet-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.aftereffects />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-orange-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-orange-500/30 hover:scale-110 hover:rotate-1 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-orange-500/50 hover:bg-gradient-to-tr hover:from-orange-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.illustrator />
+                  </div>
+                </div>
+                <div className="p-3 rounded-full backdrop-blur-lg border border-blue-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-blue-500/50 hover:bg-gradient-to-tr hover:from-blue-500/10 hover:to-black/40 group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                  <div className="relative z-10">
+                    <Icons.react />
+                  </div>
+                </div>
+              </OrbitingCircles>
+              {/* Center Creative Icon */}
+              <div className="z-10 flex size-16 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
+                <Icons.creative />
               </div>
             </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-violet-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-violet-500/30 hover:scale-110 hover:-rotate-3 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-violet-500/50 hover:bg-gradient-to-tr hover:from-violet-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.aftereffects />
-              </div>
+
+            {/* Bottom fade gradient */}
+            <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
+
+            {/* Bottom gradient and title */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute bottom-6 left-8 z-10 space-y-1">
+              <h3 className="text-white font-regular text-2xl">
+                Technologies I work with
+              </h3>
+              <p className="text-gray-400 text-sm font-light">
+                From wireframes to workflows — powered by design, motion, code,
+                and AI.
+              </p>
             </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-orange-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-orange-500/30 hover:scale-110 hover:rotate-1 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-orange-500/50 hover:bg-gradient-to-tr hover:from-orange-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.illustrator />
-              </div>
+          </div>
+
+          {/* Right side - Animated List */}
+          <div className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0  overflow-hidden" style={{
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",}}>
+            <div className="relative pt-12 flex h-full w-full flex-col overflow-hidden p-4">
+              <AnimatedList className="flex-1">
+                {skillNotifications.map((item, idx) => (
+                  <SkillNotification {...item} key={idx} />
+                ))}
+              </AnimatedList>
             </div>
-            <div className="p-3 rounded-full backdrop-blur-lg border border-blue-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:-rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-blue-500/50 hover:bg-gradient-to-tr hover:from-blue-500/10 hover:to-black/40 group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-              <div className="relative z-10">
-                <Icons.react />
-              </div>
+
+            {/* Bottom fade gradient */}
+            <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
+
+            {/* Bottom gradient and title */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute bottom-6 left-8 z-10 space-y-1">
+              <h3 className="text-white font-regular text-2xl">
+                Core Skills & Capabilities
+              </h3>
+              <p className="text-gray-400 text-sm font-light">
+                Design meets intelligence — a blend of creativity, and
+                AI-enhanced execution.
+              </p>
             </div>
-          </OrbitingCircles>
-          {/* Center Creative Icon */}
-          <div className="z-10 flex size-16 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
-            <Icons.creative />
           </div>
         </div>
       </div>

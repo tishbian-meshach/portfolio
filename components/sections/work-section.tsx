@@ -88,7 +88,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           {/* Strong gradient background for text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent" />
 
-          <div className="relative z-10 space-y-3">
+          <div className="relative z-10 space-y-1">
             <h3 className="text-xl font-bold text-white group-hover:text-sky-400 transition-colors duration-300">
               {project.title}
             </h3>

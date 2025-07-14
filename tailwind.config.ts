@@ -14,6 +14,12 @@ const config: Config = {
     "animate-ping",
     "border-white/80",
     "border-white/30",
+    "backdrop-blur-sm",
+    "backdrop-blur-md",
+    "backdrop-blur-lg",
+    "backdrop-blur-xl",
+    "backdrop-blur-2xl",
+    "backdrop-blur-3xl",
   ],
   theme: {
     extend: {
