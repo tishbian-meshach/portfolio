@@ -5,7 +5,8 @@ import { useState } from "react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import { MagicCard } from "@/components/magicui/magic-card"
 import { cn } from "@/lib/utils"
-import { Send, Mail, User, MessageSquare } from "lucide-react"
+import { Send, Mail, User, MessageSquare, CheckCircle, AlertCircle } from "lucide-react"
+import emailjs from '@emailjs/browser'
 
 export function EnhancedContactForm() {
   const [formData, setFormData] = useState({
@@ -15,19 +16,39 @@ export function EnhancedContactForm() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus('idle')
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      // Initialize EmailJS with your public key
+      emailjs.init("seDymRAWlToq24kXh")
 
-    console.log("Form submitted:", formData)
-    setIsSubmitting(false)
+      // Send email using EmailJS
+      await emailjs.send(
+        "service_qd3cqnv", // Service ID
+        "template_f0qf4ne", // Template ID (you'll need to create this)
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Tishbian", // Replace with your name
+        },
+        "seDymRAWlToq24kXh" // Public key
+      )
 
-    // Reset form
-    setFormData({ name: "", email: "", message: "" })
+      setSubmitStatus('success')
+      // Reset form
+      setFormData({ name: "", email: "", message: "" })
+    } catch (error) {
+      console.error('EmailJS error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -90,11 +111,21 @@ export function EnhancedContactForm() {
             required
           />
 
-          <StarButton type="submit" disabled={isSubmitting}>
+          <StarButton type="submit" disabled={isSubmitting || submitStatus === 'success'}>
             {isSubmitting ? (
               <>
                 <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin mr-2" />
                 Sending...
+              </>
+            ) : submitStatus === 'success' ? (
+              <>
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Message Sent!
+              </>
+            ) : submitStatus === 'error' ? (
+              <>
+                <AlertCircle className="w-4 h-4 mr-2" />
+                Try Again
               </>
             ) : (
               <>
@@ -103,6 +134,27 @@ export function EnhancedContactForm() {
               </>
             )}
           </StarButton>
+          
+          {/* Status Messages */}
+          {submitStatus === 'success' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-green-400 text-sm text-center mt-2"
+            >
+              Thank you! Your message has been sent successfully.
+            </motion.div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-red-400 text-sm text-center mt-2"
+            >
+              Sorry, there was an error sending your message. Please try again.
+            </motion.div>
+          )}
         </form>
       </div>
     </MagicCard>
