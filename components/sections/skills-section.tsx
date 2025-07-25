@@ -157,7 +157,7 @@ export function SkillsSection() {
             className="relative h-[400px] lg:h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden"
             style={{ contain: 'layout style paint' }}
           >
-            <div className="relative flex w-full items-center justify-center h-full">
+            <div className="relative flex w-full items-center justify-center h-full scale-100  lg:scale-125 ">
               <OrbitingCircles
                 className="absolute"
                 radius={140}
