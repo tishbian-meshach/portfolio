@@ -32,8 +32,8 @@ export function ScrollAnimation({ children, className = "", threshold = 0.1, id 
     if (!element) return
 
     observerRef.current = new IntersectionObserver(handleIntersection, {
-      threshold,
-      rootMargin: "0px 0px -10% 0px",
+      threshold: [0, 0.1, 0.5],
+      rootMargin: "0px 0px -20% 0px",
     })
 
     observerRef.current.observe(element)

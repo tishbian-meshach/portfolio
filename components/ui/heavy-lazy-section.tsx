@@ -56,7 +56,7 @@ export function HeavyLazySection({ component: Component, id, className = "" }: H
   }, [handleIntersection])
 
   return (
-    <div ref={ref} id={id} className={className} style={{ contain: 'layout style paint', willChange: 'contents' }}>
+    <div ref={ref} id={id} className={className}>
       {isLoaded ? <Component /> : <div className="min-h-screen bg-black flex items-center justify-center"><div className="w-6 h-6 border-2 border-sky-400/50 border-t-transparent rounded-full animate-spin" /></div>}
     </div>
   )

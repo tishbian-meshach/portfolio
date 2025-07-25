@@ -24,7 +24,7 @@ const StarBorder = ({
 }: StarBorderProps) => {
   return (
     <Component
-      className={`relative inline-block overflow-hidden rounded-[20px] ${className}`}
+      className={`relative inline-block overflow-hidden rounded-[12px] sm:rounded-[20px] ${className}`}
       style={{
         padding: `${thickness}px 0`,
         ...rest.style,
@@ -45,7 +45,7 @@ const StarBorder = ({
           animationDuration: speed,
         }}
       ></div>
-      <div className="relative z-1 bg-gradient-to-b from-black to-gray-900 border border-gray-800 text-white text-center text-[16px] py-[16px] px-[26px] rounded-[20px]">
+      <div className="relative z-1 bg-gradient-to-b from-black to-gray-900 border border-gray-800 text-white text-center text-[16px] py-[10px] px-[12px] sm:py-[16px] sm:px-[26px] rounded-[12px] sm:rounded-[20px]">
         {children}
       </div>
     </Component>

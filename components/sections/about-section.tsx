@@ -9,6 +9,7 @@ import StarBorder from "@/components/ui/star-border";
 import { cn } from "@/lib/utils";
 import { Palette, Tag, Box, Monitor, BookCheck, Calendar } from "lucide-react";
 import type React from "react";
+import { useState, useEffect } from "react";
 
 const aboutContent = [
   {
@@ -35,6 +36,19 @@ const aboutContent = [
 ];
 
 export function AboutSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
     <ScrollAnimation id="about" className="py-20 bg-black">
       <div className="section-content container mx-auto px-4 md:px-8">
@@ -67,75 +81,94 @@ export function AboutSection() {
                     <p className="font-thin">{item.description}</p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+                  <div className={cn(
+                    "grid gap-3 md:gap-4 mb-6 md:mb-8",
+                    (index === 1 || index === 2) ? "grid-cols-2 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2"
+                  )}>
                     {index === 1 && (
                       <>
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Palette size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <Palette size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                UI/UX Design
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block font-thin text-xs">
+                                User-centered interfaces
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            UI/UX Design
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            User-centered interfaces
-                          </p>
                         </StarBorder>
 
                         <StarBorder
                           color="#38bdf8"
                           speed="5s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Tag size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <Tag size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                Graphic Design
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block font-thin text-xs">
+                                Visual storytelling
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            Graphic Design
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            Visual storytelling
-                          </p>
                         </StarBorder>
 
                         <StarBorder
                           color="#38bdf8"
                           speed="6s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Box size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <Box size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                3D Graphics
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block font-thin text-xs">
+                                Dimensional Visualization
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            3D Graphics
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            Dimensional Visualization
-                          </p>
                         </StarBorder>
 
                         <StarBorder
                           color="#38bdf8"
                           speed="7s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Monitor size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <Monitor size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                Web Development
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block font-thin text-xs">
+                                Interactive experiences
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            Web Development
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            Interactive experiences
-                          </p>
                         </StarBorder>
                       </>
                     )}
@@ -145,35 +178,43 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <BookCheck size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <BookCheck size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                50+ Projects
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block  font-thin text-xs">
+                                Completed
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            50+ Projects
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            Completed
-                          </p>
                         </StarBorder>
 
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={2}
+                          thickness={isMobile ? 1 : 2}
                           className="w-full"
                         >
-                          <div className="text-sky-400 text-2xl mb-2 flex justify-center">
-                            <Calendar size={24} />
+                          <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
+                            <div className="text-sky-400 text-xl flex-shrink-0 sm:text-2xl sm:mb-2 sm:flex sm:justify-center">
+                              <Calendar size={15} className="sm:w-6 sm:h-6" />
+                            </div>
+                            <div className="sm:text-center">
+                              <h4 className="text-white font-light text-xs sm:text-base sm:mb-1 truncate sm:overflow-visible">
+                                5+ Years
+                              </h4>
+                              <p className="text-gray-400 hidden sm:block  font-thin text-xs">
+                                Experience
+                              </p>
+                            </div>
                           </div>
-                          <h4 className="text-white font-light mb-1">
-                            5+ Years
-                          </h4>
-                          <p className="text-gray-400 font-thin text-xs">
-                            Experience
-                          </p>
                         </StarBorder>
                       </>
                     )}

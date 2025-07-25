@@ -13,7 +13,7 @@ export const ContactSection = memo(function ContactSection() {
   return (
     <ScrollAnimation
       id="contact"
-      className="py-20 bg-black w-full relative overflow-hidden min-h-screen"
+      className="py-20 bg-black w-full relative min-h-screen"
     >
       {/* Ballpit Background */}
       <div className="absolute inset-0 z-10 hidden md:block">

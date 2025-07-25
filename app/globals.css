@@ -137,7 +137,7 @@
 }
 
 .section-animated {
-  contain: layout style;
+  position: relative;
 }
 
 /* Heavy animation optimizations */
@@ -171,9 +171,9 @@
 }
 
 .section-animated.out-of-view .section-content {
-  opacity: 0;
-  transform: translateY(-30px) scale(0.95);
-  animation: jump-fade-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0.3;
+  transform: translateY(-10px) scale(0.98);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   will-change: auto;
 }
 

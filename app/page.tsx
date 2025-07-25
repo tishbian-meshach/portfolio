@@ -16,24 +16,30 @@ export default function Home() {
   const [isNavVisible, setIsNavVisible] = useState(true)
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    
     const handleScroll = () => {
-      if (window.innerWidth < 768) {
-        const scrollTop = window.scrollY
-        const documentHeight = document.documentElement.scrollHeight
-        const windowHeight = window.innerHeight
-        const isAtBottom = scrollTop + windowHeight >= documentHeight - 50
-        
-        setIsNavVisible(!isAtBottom)
-      } else {
-        setIsNavVisible(true)
-      }
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        if (window.innerWidth < 768) {
+          const scrollTop = window.scrollY
+          const documentHeight = document.documentElement.scrollHeight
+          const windowHeight = window.innerHeight
+          const isAtBottom = scrollTop + windowHeight >= documentHeight - 100
+          
+          setIsNavVisible(!isAtBottom)
+        } else {
+          setIsNavVisible(true)
+        }
+      }, 50)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleScroll)
     handleScroll()
 
     return () => {
+      clearTimeout(timeoutId)
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleScroll)
     }
@@ -41,7 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-black text-white" style={{ contain: 'layout style' }}>
+      <main className="min-h-screen bg-black text-white">
         <HeroSection />
         <LazySection component={AboutSection} id="about" />
         <LazySection component={WorkSection} id="work" />
