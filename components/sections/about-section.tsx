@@ -90,7 +90,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
@@ -111,7 +111,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="5s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
@@ -132,7 +132,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="6s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
@@ -153,7 +153,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="7s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
@@ -178,7 +178,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
@@ -199,7 +199,7 @@ export function AboutSection() {
                         <StarBorder
                           color="#38bdf8"
                           speed="4s"
-                          thickness={isMobile ? 1 : 2}
+                          thickness={1}
                           className="w-full"
                         >
                           <div className="flex items-center gap-3 sm:flex-col sm:gap-0">
