@@ -53,7 +53,7 @@ export function AboutSection() {
                   <RainbowButton className="mb-4">{item.badge}</RainbowButton>
 
                   <div className="relative">
-                    <h3 className="text-xl md:text-3xl font-regular text-white mb-4">
+                    <h3 className="text-xl md:text-3xl font-light text-white mb-4">
                       {item.title}
                     </h3>
                   </div>

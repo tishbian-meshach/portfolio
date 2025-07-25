@@ -50,7 +50,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={project.className}
     >
-      <div className="group relative h-full cursor-pointer transition-all duration-300 hover:scale-[1.02] overflow-hidden rounded-xl border border-gray-800 bg-gray-900 hover:border-sky-400/50">
+      <div className="group relative h-full cursor-pointer transition-all duration-300 hover:scale-[1.02] overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 hover:border-sky-400/50">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -64,7 +64,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
 
         {/* Category Badge - Top Left */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="inline-block rounded-full bg-sky-400/20 px-3 py-1 text-xs text-sky-400 backdrop-blur-sm border border-sky-400/30">
+          <span className="inline-block rounded-md bg-sky-400/20 px-3 py-1 text-xs text-sky-400 backdrop-blur-sm border border-sky-400/30">
             {project.category}
           </span>
         </div>
@@ -89,17 +89,17 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent" />
 
           <div className="relative z-10 space-y-1">
-            <h3 className="text-xl font-bold text-white group-hover:text-sky-400 transition-colors duration-300">
+            <h3 className="text-xl font-light text-white group-hover:text-sky-400 transition-colors duration-300">
               {project.title}
             </h3>
-            <p className="text-sm text-gray-200 leading-relaxed line-clamp-2">{project.description}</p>
+            <p className="text-xs font-light text-gray-300 leading-relaxed line-clamp-2">{project.description}</p>
 
             {/* Tech Stack */}
             <div className="flex flex-wrap gap-2 pt-2">
               {project.tech.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="rounded px-2 py-1 text-xs text-gray-200 bg-white/10 backdrop-blur-sm border border-white/20"
+                  className="rounded px-2 py-1 font-thin text-xs text-gray-200 bg-white/10 backdrop-blur-sm border border-white/20"
                 >
                   {tech}
                 </span>

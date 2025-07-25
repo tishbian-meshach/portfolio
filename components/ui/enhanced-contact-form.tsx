@@ -70,7 +70,7 @@ export const EnhancedContactForm = memo(function EnhancedContactForm() {
           >
             <Mail className="w-8 h-8 text-white" />
           </motion.div>
-          <h2 className="text-2xl font-bold text-white mb-2">Get In Touch</h2>
+          <h2 className="text-2xl font-extralight text-white mb-2">Get In Touch</h2>
           <p className="text-gray-400 text-sm">Let's create something amazing together</p>
         </div>
 
@@ -188,7 +188,7 @@ function FormField({
 }: FormFieldProps) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="flex items-center gap-2 text-sm font-medium text-gray-300">
+      <label htmlFor={id} className="flex items-center gap-2 text-sm font-thin text-gray-300">
         {icon}
         {label}
       </label>

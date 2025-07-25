@@ -232,7 +232,7 @@ export function SkillsSection() {
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
-              <h3 className="text-white font-regular text-lg lg:text-2xl">
+              <h3 className="text-white font-thin text-lg lg:text-2xl">
                 Technologies I work with
               </h3>
               <p className="text-gray-400 text-xs lg:text-sm font-light">
@@ -258,10 +258,10 @@ export function SkillsSection() {
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
-              <h3 className="text-white font-regular text-lg lg:text-2xl">
+              <h3 className="text-white font-thin text-lg lg:text-2xl">
                 Core Skills & Capabilities
               </h3>
-              <p className="text-gray-400 text-xs lg:text-sm font-light">
+              <p className="text-gray-400 text-xs lg:text-sm font-thin">
                 Design meets intelligence — a blend of creativity, and
                 AI-enhanced execution.
               </p>
