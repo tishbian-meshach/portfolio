@@ -47,7 +47,7 @@ export function AboutSection() {
 
         <div style={{ "--stagger-delay": "1" } as React.CSSProperties}>
           <TracingBeam className="px-2 md:px-6">
-            <div className="max-w-2xl mx-auto antialiased pt-4 relative ml-8 md:ml-0">
+            <div className="max-w-2xl mx-auto antialiased pt-4 relative pl-8 md:pl-0">
               {aboutContent.map((item, index) => (
                 <div key={`content-${index}`} className="mb-8 md:mb-16">
                   <RainbowButton className="mb-4">{item.badge}</RainbowButton>
