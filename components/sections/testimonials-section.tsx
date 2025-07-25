@@ -57,7 +57,7 @@ const TestimonialCard = ({
       <blockquote className="text-gray-400 font-thin mb-3 md:mb-4 italic text-sm md:text-base">"{quote}"</blockquote>
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold text-xs md:text-sm">
+          <span className="text-white font-regular text-xs md:text-sm">
             {author
               .split(" ")
               .map((n) => n[0])
