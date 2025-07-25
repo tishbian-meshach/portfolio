@@ -57,6 +57,9 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  .theme {
+    --animate-grid: grid 15s linear infinite;
+  }
 }
 
 @layer base {
@@ -292,4 +295,15 @@
 
 .animate-scroll-up {
   animation: scroll-up 20s linear infinite;
+}
+
+@theme inline {
+  @keyframes grid {
+  0% {
+    transform: translateY(-50%);
+    }
+  100% {
+    transform: translateY(0);
+    }
+  }
 }

@@ -6,6 +6,7 @@ import { Marquee } from "@/components/magicui/marquee"
 import { ScrollAnimation } from "@/components/ui/scroll-animation"
 import { GlowingCard } from "@/components/ui/glowing-card"
 
+
 const testimonials = [
   {
     quote: "Tishbian's design work is exceptional. The attention to detail and user experience is unmatched.",
@@ -52,7 +53,7 @@ const TestimonialCard = ({
   role: string
 }) => {
   return (
-    <div className="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
+    <GlowingCard className="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
       <blockquote className="text-gray-300 mb-4 italic">"{quote}"</blockquote>
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">
@@ -68,7 +69,7 @@ const TestimonialCard = ({
           <p className="text-gray-400 text-xs">{role}</p>
         </div>
       </div>
-    </div>
+    </GlowingCard>
   )
 }
 

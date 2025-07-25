@@ -1,22 +1,27 @@
-"use client"
-import { TextReveal } from "@/components/magicui/text-reveal"
-import { ScrollAnimation } from "@/components/ui/scroll-animation"
-import { EnhancedContactForm } from "@/components/ui/enhanced-contact-form"
-import { motion } from "framer-motion"
-import { lazy, Suspense, memo } from "react"
+"use client";
+import { TextReveal } from "@/components/magicui/text-reveal";
+import { ScrollAnimation } from "@/components/ui/scroll-animation";
+import { EnhancedContactForm } from "@/components/ui/enhanced-contact-form";
+import { motion } from "framer-motion";
+import { lazy, Suspense, memo } from "react";
+import { RetroGrid } from "@/components/magicui/retro-grid";
+import Ballpit from "@/components/magicui/Ballpit/Ballpit";
 
-const Globe = lazy(() => import("@/components/magicui/globe"))
+const Globe = lazy(() => import("@/components/magicui/globe"));
 
 export const ContactSection = memo(function ContactSection() {
   return (
-    <ScrollAnimation id="contact" className="py-20 bg-black w-full relative overflow-hidden min-h-screen">
-      {/* Background decoration with black gradient fade */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-900/5 via-transparent to-blue-900/5 bg-transparent opacity-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-sky-400/5 rounded-full blur-3xl" />
-      {/* Black gradient fade overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60 z-5" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60 z-5" />
-     
+    <ScrollAnimation
+      id="contact"
+      className="py-20 bg-black w-full relative overflow-hidden min-h-screen"
+    >
+      {/* Ballpit Background */}
+      <div className="absolute inset-0 z-10">
+        <Ballpit
+         
+        />
+      </div>
+
       {/* Top Content */}
       <div className="section-content w-full mx-auto px-4 relative z-20">
         <TextReveal
@@ -29,16 +34,14 @@ export const ContactSection = memo(function ContactSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-gray-400 text-center font-thin mb-16 max-w-2xl mx-auto"
         >
-          Ready to turn your ideas into reality? Let's discuss your next project and create something extraordinary with
-          AI-enhanced solutions.
+          Ready to turn your ideas into reality? Let's discuss your next project
+          and create something extraordinary with AI-enhanced solutions.
         </motion.p>
         {/* Contact Form with extra padding for star overflow */}
         <div className="relative w-full max-w-2xl z-20 mx-auto px-16 py-8">
           <EnhancedContactForm />
         </div>
       </div>
-     
-      
     </ScrollAnimation>
-  )
-})
+  );
+});

@@ -7,11 +7,12 @@ import { DotBackground } from "@/components/ui/dot-background";
 import { images } from "@/constants/index";
 import { cn } from "@/lib/utils";
 import { AnimatedList } from "@/components/magicui/animated-list";
+import { Smartphone, Brain, Settings, BarChart3, Bot, Puzzle, Palette, Globe, Code, Zap, Handshake } from "lucide-react";
 
 interface SkillNotification {
   name: string;
   description: string;
-  icon: string;
+  icon: React.ReactNode;
   color: string;
 }
 
@@ -19,73 +20,73 @@ const baseSkillNotifications: SkillNotification[] = [
   {
     name: "User Interface Design",
     description: "Designing clean and modern UI in Figma.",
-    icon: "📱",
+    icon: <Smartphone className="w-5 h-5" />,
     color: "#0EA5E9",
   },
   {
     name: "UX Research",
     description: "Mapping user flows and behaviors.",
-    icon: "🧠",
+    icon: <Brain className="w-5 h-5" />,
     color: "#F59E0B",
   },
   {
     name: "Prototyping",
     description: "Interactive mockups in Framer.",
-    icon: "🎛️",
+    icon: <Settings className="w-5 h-5" />,
     color: "#6366F1",
   },
   {
     name: "Product Strategy",
     description: "Balancing user needs and goals.",
-    icon: "📊",
+    icon: <BarChart3 className="w-5 h-5" />,
     color: "#10B981",
   },
   {
     name: "AI Tools",
     description: "Boosting workflow with AI.",
-    icon: "🤖",
+    icon: <Bot className="w-5 h-5" />,
     color: "#8B5CF6",
   },
   {
     name: "Design Systems",
     description: "Building reusable UI kits.",
-    icon: "🧩",
+    icon: <Puzzle className="w-5 h-5" />,
     color: "#38BDF8",
   },
   {
     name: "Brand Design",
     description: "Thumbnails, logos, and visuals.",
-    icon: "🎨",
+    icon: <Palette className="w-5 h-5" />,
     color: "#F43F5E",
   },
   {
     name: "3D Mockups",
     description: "Scenes and UI in Spline.",
-    icon: "🌐",
+    icon: <Globe className="w-5 h-5" />,
     color: "#FF8C00",
   },
   {
     name: "Dev Handoff",
     description: "Code-ready design in Next.js.",
-    icon: "💻",
+    icon: <Code className="w-5 h-5" />,
     color: "#000000",
   },
   {
     name: "AI Automation",
     description: "Quick mockups via prompts.",
-    icon: "⚡",
+    icon: <Zap className="w-5 h-5" />,
     color: "#22C55E",
   },
   {
     name: "Client Projects",
     description: "Designing for creators & brands.",
-    icon: "🤝",
+    icon: <Handshake className="w-5 h-5" />,
     color: "#3B82F6",
   },
   {
     name: "Problem Solving",
     description: "Fixing UX issues with AI.",
-    icon: "🧠",
+    icon: <Brain className="w-5 h-5" />,
     color: "#A855F7",
   },
 ];
@@ -117,7 +118,7 @@ const SkillNotification = ({
             backgroundColor: color,
           }}
         >
-          <span className="text-md">{icon}</span>
+          <div className="text-white">{icon}</div>
         </div>
         <div className="flex flex-col overflow-hidden">
           <figcaption className="text-sm sm:text-md font-light dark:text-white">
