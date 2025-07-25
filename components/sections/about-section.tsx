@@ -37,7 +37,7 @@ const aboutContent = [
 export function AboutSection() {
   return (
     <ScrollAnimation id="about" className="py-20 bg-black">
-      <div className="section-content container mx-auto px-4">
+      <div className="section-content container mx-auto px-4 md:px-8">
         <div style={{ "--stagger-delay": "0" } as React.CSSProperties}>
           <TextReveal
             text="About Me"
@@ -46,10 +46,10 @@ export function AboutSection() {
         </div>
 
         <div style={{ "--stagger-delay": "1" } as React.CSSProperties}>
-          <TracingBeam className="px-6">
-            <div className="max-w-2xl mx-auto antialiased pt-4 relative">
+          <TracingBeam className="px-2 md:px-6">
+            <div className="max-w-2xl mx-auto antialiased pt-4 relative ml-8 md:ml-0">
               {aboutContent.map((item, index) => (
-                <div key={`content-${index}`} className="mb-16">
+                <div key={`content-${index}`} className="mb-8 md:mb-16">
                   <RainbowButton className="mb-4">{item.badge}</RainbowButton>
 
                   <div className="relative">
@@ -67,7 +67,7 @@ export function AboutSection() {
                     <p className="font-thin">{item.description}</p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
                     {index === 1 && (
                       <>
                         <StarBorder

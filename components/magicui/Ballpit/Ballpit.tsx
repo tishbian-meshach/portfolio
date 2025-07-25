@@ -504,31 +504,36 @@ class Y extends MeshPhysicalMaterial {
   onBeforeCompile2?: (shader: any) => void;
 }
 
-const XConfig = {
-  count: 100,
-  colors: [0xffffff, 0x000000, 0x38bdf8],
-  ambientColor: 0xffffff,
-  ambientIntensity: 1,
-  lightIntensity: 200,
-  materialParams: {
-    metalness: 0.5,
-    roughness: 0.5,
-    clearcoat: 1,
-    clearcoatRoughness: 0.15,
-  },
-  minSize: 0.5,
-  maxSize: 1,
-  size0: 0,
-  gravity: 0.1,
-  friction: 0.9975,
-  wallBounce: 0.95,
-  maxVelocity: 1,
-  maxX: 5,
-  maxY: 5,
-  maxZ: 2,
-  controlSphere0: false,
-  followCursor: true,
+const getResponsiveConfig = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  return {
+    count: isMobile ? 30 : 100,
+    colors: [0xffffff, 0x000000, 0x38bdf8],
+    ambientColor: 0xffffff,
+    ambientIntensity: 1,
+    lightIntensity: 200,
+    materialParams: {
+      metalness: 0.5,
+      roughness: 0.5,
+      clearcoat: 1,
+      clearcoatRoughness: 0.15,
+    },
+    minSize: isMobile ? 0.3 : 0.5,
+    maxSize: isMobile ? 0.7 : 1,
+    size0: 0,
+    gravity: 0.1,
+    friction: 0.9975,
+    wallBounce: 0.95,
+    maxVelocity: 1,
+    maxX: 5,
+    maxY: 5,
+    maxZ: 2,
+    controlSphere0: false,
+    followCursor: true,
+  };
 };
+
+const XConfig = getResponsiveConfig();
 
 const U = new Object3D();
 
@@ -659,8 +664,8 @@ class Z extends InstancedMesh {
   ambientLight: AmbientLight | undefined;
   light: PointLight | undefined;
 
-  constructor(renderer: WebGLRenderer, params: Partial<typeof XConfig> = {}) {
-    const config = { ...XConfig, ...params };
+  constructor(renderer: WebGLRenderer, params: any = {}) {
+    const config = { ...getResponsiveConfig(), ...params };
     const roomEnv = new RoomEnvironment();
     const pmrem = new PMREMGenerator(renderer);
     const envTexture = pmrem.fromScene(roomEnv).texture;

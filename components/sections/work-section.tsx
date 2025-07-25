@@ -14,7 +14,7 @@ const projects = [
     category: "Mobile App",
     tech: ["React Native", "Node.js", "MongoDB"],
     image: "/images/travel-app.webp",
-    className: "md:col-span-2",
+    className: "col-span-1 md:col-span-2",
   },
   {
     title: "Fashion Store",
@@ -22,7 +22,7 @@ const projects = [
     category: "E-commerce",
     tech: ["Next.js", "Stripe", "Tailwind"],
     image: "/images/ecommerce-app.webp",
-    className: "md:col-span-1",
+    className: "col-span-1 md:col-span-1",
   },
   {
     title: "Personal Branding",
@@ -30,7 +30,7 @@ const projects = [
     category: "Branding",
     tech: ["Figma", "Illustrator", "After Effects"],
     image: "/images/personal-branding.png",
-    className: "md:col-span-1",
+    className: "col-span-1 md:col-span-1",
   },
   {
     title: "Dashboard Design",
@@ -38,7 +38,7 @@ const projects = [
     category: "Web App",
     tech: ["React", "D3.js", "TypeScript"],
     image: "/images/dashboard.png",
-    className: "md:col-span-2",
+    className: "col-span-1 md:col-span-2",
   },
 ]
 
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
         </div>
 
         {/* Content Area - Bottom Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 z-10">
           {/* Strong gradient background for text readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent" />
 
@@ -118,7 +118,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
 export function WorkSection() {
   return (
     <ScrollAnimation id="work" className="py-20 bg-black">
-      <div className="section-content container mx-auto px-4">
+      <div className="section-content container mx-auto px-4 md:px-8">
         <h2
           className="text-4xl md:text-6xl font-regular text-center mb-4 text-white"
           style={{ "--stagger-delay": "0" } as React.CSSProperties}
@@ -133,7 +133,7 @@ export function WorkSection() {
         </p>
 
         <div
-          className="grid md:auto-rows-[20rem] grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16"
+          className="grid auto-rows-[16rem] md:auto-rows-[20rem] grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto mb-16"
           style={{ "--stagger-delay": "2" } as React.CSSProperties}
         >
           {projects.map((project, index) => (

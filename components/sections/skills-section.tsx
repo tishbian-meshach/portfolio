@@ -137,30 +137,30 @@ export function SkillsSection() {
       {/* Dot Background */}
       <DotBackground className="absolute inset-0 size-full" />
 
-      <div className="section-content container mx-auto px-36 relative z-10">
+      <div className="section-content container mx-auto px-4 md:px-8 lg:px-36 relative z-10">
         <div style={{ "--stagger-delay": "0" } as React.CSSProperties}>
           <h2 className="text-4xl md:text-6xl font-regular text-center mb-4 text-white">
             Skills & Tools
           </h2>
-          <p className="text-base font-thin text-gray-400 text-center max-w-4xl mx-auto mb-16">
+          <p className="text-base font-thin text-gray-400 text-center max-w-xl mx-auto mb-16">
             A showcase of the technologies, design tools, and creative skills I
             use to bring ideas to life.
           </p>
         </div>
 
         <div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center"
           style={{ "--stagger-delay": "1" } as React.CSSProperties}
         >
           {/* Left side - Orbiting Circles */}
           <div
-            className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden"
+            className="relative h-[400px] lg:h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden"
             style={{ contain: 'layout style paint' }}
           >
             <div className="relative flex w-full items-center justify-center h-full">
               <OrbitingCircles
                 className="absolute"
-                radius={180}
+                radius={140}
                 reverse
                 startAngle={45}
               >
@@ -192,7 +192,7 @@ export function SkillsSection() {
 
               <OrbitingCircles
                 className="absolute"
-                radius={100}
+                radius={80}
                 startAngle={90}
               >
                 <div className="p-3 rounded-full backdrop-blur-lg border border-blue-500/20 bg-gradient-to-tr from-black/60 to-black/40 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-110 hover:rotate-2 active:scale-95 active:rotate-0 transition-all duration-300 ease-out cursor-pointer hover:border-blue-500/50 hover:bg-gradient-to-tr hover:from-blue-500/10 hover:to-black/40 group relative overflow-hidden">
@@ -231,11 +231,11 @@ export function SkillsSection() {
 
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute bottom-6 left-8 z-10 space-y-1">
-              <h3 className="text-white font-regular text-2xl">
+            <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
+              <h3 className="text-white font-regular text-lg lg:text-2xl">
                 Technologies I work with
               </h3>
-              <p className="text-gray-400 text-sm font-light">
+              <p className="text-gray-400 text-xs lg:text-sm font-light">
                 From wireframes to workflows — powered by design, motion, code,
                 and AI.
               </p>
@@ -243,7 +243,7 @@ export function SkillsSection() {
           </div>
 
           {/* Right side - Continuous Scrolling List */}
-          <div className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden">
+          <div className="relative h-[400px] lg:h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden">
             <div className="animate-scroll-up">
               <div className="flex flex-col gap-4 p-4">
                 {[...skillNotifications, ...skillNotifications].map((item, idx) => (
@@ -257,11 +257,11 @@ export function SkillsSection() {
 
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute bottom-6 left-8 z-10 space-y-1">
-              <h3 className="text-white font-regular text-2xl">
+            <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
+              <h3 className="text-white font-regular text-lg lg:text-2xl">
                 Core Skills & Capabilities
               </h3>
-              <p className="text-gray-400 text-sm font-light">
+              <p className="text-gray-400 text-xs lg:text-sm font-light">
                 Design meets intelligence — a blend of creativity, and
                 AI-enhanced execution.
               </p>

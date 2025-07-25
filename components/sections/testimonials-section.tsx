@@ -53,11 +53,11 @@ const TestimonialCard = ({
   role: string
 }) => {
   return (
-    <GlowingCard className="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
-      <blockquote className="text-gray-300 mb-4 italic">"{quote}"</blockquote>
+    <GlowingCard className="relative w-72 md:w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-4 md:p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
+      <blockquote className="text-gray-300 mb-3 md:mb-4 italic text-sm md:text-base">"{quote}"</blockquote>
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold text-sm">
+        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">
+          <span className="text-white font-semibold text-xs md:text-sm">
             {author
               .split(" ")
               .map((n) => n[0])
@@ -65,7 +65,7 @@ const TestimonialCard = ({
           </span>
         </div>
         <div>
-          <figcaption className="text-white font-semibold text-sm">{author}</figcaption>
+          <figcaption className="text-white font-semibold text-xs md:text-sm">{author}</figcaption>
           <p className="text-gray-400 text-xs">{role}</p>
         </div>
       </div>
@@ -76,7 +76,7 @@ const TestimonialCard = ({
 export function TestimonialsSection() {
   return (
     <ScrollAnimation className="py-20 bg-black">
-      <div className="section-content container mx-auto px-4">
+      <div className="section-content container mx-auto px-4 md:px-8">
         <h2
           className="text-4xl md:text-6xl font-regular text-center mb-4 text-white"
           style={{ "--stagger-delay": "0" } as React.CSSProperties}
@@ -84,14 +84,14 @@ export function TestimonialsSection() {
           What People Say
         </h2>
         <p
-          className="text-gray-400 text-center font-thin mb-16 max-w-2xl mx-auto"
+          className="text-gray-400 text-center font-thin max-w-xl mx-auto"
           style={{ "--stagger-delay": "1" } as React.CSSProperties}
         >
           Hear from clients and collaborators who have experienced the impact of thoughtful design
         </p>
 
         <div
-          className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg"
+          className="relative flex h-[400px] md:h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg"
           style={{ "--stagger-delay": "2", contain: 'layout style paint' } as React.CSSProperties}
         >
           <Marquee pauseOnHover className="[--duration:20s]">

@@ -17,13 +17,11 @@ export const ContactSection = memo(function ContactSection() {
     >
       {/* Ballpit Background */}
       <div className="absolute inset-0 z-10">
-        <Ballpit
-         
-        />
+        <Ballpit />
       </div>
 
       {/* Top Content */}
-      <div className="section-content w-full mx-auto px-4 relative z-20">
+      <div className="section-content w-full mx-auto px-4 md:px-8 relative z-20">
         <TextReveal
           text="Let's collaborate!"
           className="text-4xl md:text-6xl font-regular text-center mb-4 text-white"
@@ -32,13 +30,12 @@ export const ContactSection = memo(function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-gray-400 text-center font-thin mb-16 max-w-2xl mx-auto"
+          className="text-gray-400 text-center font-thin mb-8 max-w-2xl mx-auto"
         >
-          Ready to turn your ideas into reality? Let's discuss your next project
-          and create something extraordinary with AI-enhanced solutions.
+          Ready to turn your ideas into reality? Let's discuss your next project.
         </motion.p>
         {/* Contact Form with extra padding for star overflow */}
-        <div className="relative w-full max-w-2xl z-20 mx-auto px-16 py-8">
+        <div className="relative w-full max-w-2xl z-20 mx-auto px-4 md:px-16 py-6 md:py-8">
           <EnhancedContactForm />
         </div>
       </div>

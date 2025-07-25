@@ -151,16 +151,13 @@ export function StripeBgGuides({
             display: "grid",
             gridTemplateColumns: responsive
               ? `repeat(auto-fit, minmax(${minColumnWidth}, 1fr))`
-              : `repeat(${columnCount}, minmax(0, 1fr))`,
-            gap: "2rem",
+              : `repeat(${columnCount}, 1fr)`,
           }}
         >
           {columns.map((_, index) => (
             <div key={index} className="relative h-full">
               <div
-                className={`absolute inset-y-0 ${
-                  index === 0 ? "left-0" : index === columns.length - 1 ? "right-0" : "left-1/2"
-                } w-px ${solidLines.includes(index + 1) ? "bg-gray-950" : "bg-gradient-to-b"} overflow-hidden`}
+                className={`absolute inset-y-0 left-1/2 -translate-x-1/2 w-px ${solidLines.includes(index + 1) ? "bg-gray-950" : "bg-gradient-to-b"} overflow-hidden`}
                 style={
                   solidLines.includes(index + 1)
                     ? { background: lineColors.solid }
