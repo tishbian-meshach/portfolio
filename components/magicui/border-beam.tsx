@@ -64,3 +64,4 @@ const BorderBeam = ({
     </div>
   );
 };
+export default BorderBeam;

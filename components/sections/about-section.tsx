@@ -82,8 +82,9 @@ export function AboutSection() {
                   </div>
 
                   <div className={cn(
-                    "grid gap-3 md:gap-4 mb-6 md:mb-8",
-                    (index === 1 || index === 2) ? "grid-cols-2 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2"
+                    "grid gap-3 md:gap-4 mb-6 md:mb-8 ",
+                    (index === 1 || index === 2) ? "grid-cols-2 sm:grid-cols-2  " : "grid-cols-1 sm:grid-cols-2",
+                    index === 1 && "mb-16 sm:mb-0", index === 0 && "mb-16 sm:mb-0"
                   )}>
                     {index === 1 && (
                       <>

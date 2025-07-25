@@ -53,7 +53,7 @@ const TestimonialCard = ({
   role: string
 }) => {
   return (
-    <GlowingCard className="relative w-72 md:w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-4 md:p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
+    <GlowingCard className="relative w-72 md:w-80 cursor-pointer overflow-hidden rounded-xl border border-black-800 p-4 md:p-6 backdrop-blur-sm hover:bg-black-800/50 transition-colors bg-transparent">
       <blockquote className="text-gray-400 font-thin mb-3 md:mb-4 italic text-sm md:text-base">"{quote}"</blockquote>
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">

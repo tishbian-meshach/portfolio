@@ -18,8 +18,8 @@ export function RainbowButton({ children, className, ...props }: RainbowButtonPr
         // before styles
         "before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-rainbow before:bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] before:bg-[length:200%] before:[filter:blur(calc(0.8*1rem))]",
 
-        // color css variables
-        "[--color-1:0_100%_63%] [--color-2:270_100%_63%] [--color-3:210_100%_63%] [--color-4:195_100%_63%] [--color-5:90_100%_63%]",
+        // blue color css variables - variations of #38bdf8
+        "[--color-1:200_100%_70%] [--color-2:210_100%_75%] [--color-3:195_100%_65%] [--color-4:205_100%_80%] [--color-5:190_100%_60%]",
 
         "bg-[linear-gradient(#121213,#121213),linear-gradient(#121213_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))]",
 

@@ -50,22 +50,27 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={project.className}
     >
-      <div className="group relative h-full cursor-pointer transition-all duration-300 hover:scale-[1.02] overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 hover:border-sky-400/50">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${project.image})`,
-          }}
-        />
+      <div className="group relative h-full cursor-pointer transition-all duration-300 hover:scale-[1.02] overflow-hidden rounded-[17px] bg-gray-800 hover:shadow-[0_-20px_40px_rgba(56,189,248,0.05)] hover:drop-shadow-[0_-15px_25px_rgba(56,189,248,0.04)] hover:bg-gradient-to-br hover:from-sky-400 hover:to-sky-400/5 p-[1.2px]">
+        {/* Inner container for gradient border effect */}
+        <div className="relative h-full  w-full rounded-2xl bg-gray-900 overflow-hidden">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-300  group-hover:brightness-110"
+            style={{
+              backgroundImage: `url(${project.image})`,
+            }}
+          />
 
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/50" />
 
+        {/* Inner glow overlay */}
+        <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 shadow-[inset_0_0_30px_rgba(56,189,248,0.15)] rounded-2xl pointer-events-none" />
+
         {/* Category Badge - Top Left */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="inline-block rounded-md bg-sky-400/20 px-3 py-1 text-xs text-sky-400 backdrop-blur-sm border border-sky-400/30">
-            {project.category}
+          <span className="inline-block rounded-xl bg-white/10 px-3 py-1 text-xs text-white backdrop-blur-md border border-white/20 transition-all duration-300 group-hover:bg-sky-400/30 group-hover:border-sky-400/60 group-hover:text-white group-hover:shadow-xl group-hover:shadow-sky-400/40 group-hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.3)] before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-white/5 before:to-transparent before:pointer-events-none relative overflow-hidden group-hover:before:from-sky-400/20">
+            <span className="relative z-10 font-light">{project.category}</span>
           </span>
         </div>
 
@@ -89,17 +94,17 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent" />
 
           <div className="relative z-10 space-y-1">
-            <h3 className="text-xl font-light text-white group-hover:text-sky-400 transition-colors duration-300">
+            <h3 className="text-xl font-light text-white duration-300">
               {project.title}
             </h3>
             <p className="text-xs font-light text-gray-300 leading-relaxed line-clamp-2">{project.description}</p>
 
             {/* Tech Stack */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-1.5 pt-2">
               {project.tech.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="rounded px-2 py-1 font-thin text-xs text-gray-200 bg-white/10 backdrop-blur-sm border border-white/20"
+                  className="text-[10px] font-light text-gray-300 bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded border border-gray-600/40"
                 >
                   {tech}
                 </span>
@@ -108,8 +113,9 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           </div>
         </div>
 
-        {/* Hover Overlay */}
-        <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-sky-400/5" />
+          {/* Hover Overlay */}
+          <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-sky-400/5" />
+        </div>
       </div>
     </motion.div>
   )
