@@ -16,7 +16,7 @@ export const ContactSection = memo(function ContactSection() {
       className="py-20 bg-black w-full relative overflow-hidden min-h-screen"
     >
       {/* Ballpit Background */}
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-10 hidden md:block">
         <Ballpit />
       </div>
 
