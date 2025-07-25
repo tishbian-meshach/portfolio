@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <ScrollAnimation className="py-6 md:py-12 bg-black border-t border-gray-900" data-footer>
       <div className="section-content container mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center ">
-        <div className="flex space-x-4 md:space-x-6 mb-5 md:mb-0">
+        <div className="flex space-x-4 md:space-x-6 mb-6 md:mb-0">
           <a
             href="https://github.com/tishbian-meshach"
             target="_blank"

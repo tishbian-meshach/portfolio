@@ -231,7 +231,7 @@ export function SkillsSection() {
 
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
+            <div className="absolute bottom-0 left-0 z-10 space-y-1 p-4 lg:p-8">
               <h3 className="text-white font-thin text-lg lg:text-2xl">
                 Technologies I work with
               </h3>
@@ -257,7 +257,7 @@ export function SkillsSection() {
 
             {/* Bottom gradient and title */}
             <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-8 z-10 space-y-1">
+            <div className="absolute bottom-0 left-0 z-10 space-y-1 p-4 lg:p-8">
               <h3 className="text-white font-thin text-lg lg:text-2xl">
                 Core Skills & Capabilities
               </h3>
