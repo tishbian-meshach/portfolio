@@ -15,10 +15,22 @@ export function HeavyLazySection({ component: Component, id, className = "" }: H
 
   const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-        setIsLoaded(true)
-        if (observerRef.current) {
-          observerRef.current.disconnect()
+      if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+        // Use requestIdleCallback for better performance
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            setIsLoaded(true)
+            if (observerRef.current) {
+              observerRef.current.disconnect()
+            }
+          })
+        } else {
+          setTimeout(() => {
+            setIsLoaded(true)
+            if (observerRef.current) {
+              observerRef.current.disconnect()
+            }
+          }, 0)
         }
       }
     })
@@ -29,8 +41,8 @@ export function HeavyLazySection({ component: Component, id, className = "" }: H
     if (!element) return
 
     observerRef.current = new IntersectionObserver(handleIntersection, {
-      rootMargin: "50px",
-      threshold: [0.1, 0.3]
+      rootMargin: "100px",
+      threshold: [0.1]
     })
 
     observerRef.current.observe(element)
@@ -44,8 +56,8 @@ export function HeavyLazySection({ component: Component, id, className = "" }: H
   }, [handleIntersection])
 
   return (
-    <div ref={ref} id={id} className={className} style={{ contain: 'layout style paint' }}>
-      {isLoaded ? <Component /> : <div className="min-h-screen bg-black flex items-center justify-center"><div className="w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" /></div>}
+    <div ref={ref} id={id} className={className} style={{ contain: 'layout style paint', willChange: 'contents' }}>
+      {isLoaded ? <Component /> : <div className="min-h-screen bg-black flex items-center justify-center"><div className="w-6 h-6 border-2 border-sky-400/50 border-t-transparent rounded-full animate-spin" /></div>}
     </div>
   )
 }

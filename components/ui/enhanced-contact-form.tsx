@@ -1,14 +1,14 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, memo, useCallback } from "react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import { MagicCard } from "@/components/magicui/magic-card"
 import { cn } from "@/lib/utils"
 import { Send, Mail, User, MessageSquare, CheckCircle, AlertCircle } from "lucide-react"
 import emailjs from '@emailjs/browser'
 
-export function EnhancedContactForm() {
+export const EnhancedContactForm = memo(function EnhancedContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +18,7 @@ export function EnhancedContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
@@ -49,14 +49,14 @@ export function EnhancedContactForm() {
     } finally {
       setIsSubmitting(false)
     }
-  }
+  }, [formData])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    })
-  }
+    }))
+  }, [])
 
   return (
     <MagicCard className="max-w-md w-full mx-auto">
@@ -159,7 +159,7 @@ export function EnhancedContactForm() {
       </div>
     </MagicCard>
   )
-}
+})
 
 interface FormFieldProps {
   icon: React.ReactNode
@@ -186,17 +186,6 @@ function FormField({
   isTextarea = false,
   required = false,
 }: FormFieldProps) {
-  const radius = 80
-  const [visible, setVisible] = useState(false)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-    const { left, top } = currentTarget.getBoundingClientRect()
-    mouseX.set(clientX - left)
-    mouseY.set(clientY - top)
-  }
-
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="flex items-center gap-2 text-sm font-medium text-gray-300">
@@ -204,21 +193,6 @@ function FormField({
         {label}
       </label>
       <div className="relative overflow-hidden rounded-lg">
-        <motion.div
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
-                #3b82f6,
-                transparent 70%
-              )
-            `,
-          }}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setVisible(true)}
-          onMouseLeave={() => setVisible(false)}
-          className="absolute inset-0 opacity-30 transition-opacity duration-300"
-        />
         {isTextarea ? (
           <textarea
             id={id}

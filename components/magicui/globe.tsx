@@ -9,12 +9,12 @@ const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
   onRender: () => {},
-  devicePixelRatio: 2,
+  devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
   phi: 0,
   theta: 0.3,
   dark: 1,
   diffuse: 0.4,
-  mapSamples: 16000,
+  mapSamples: 8000,
   mapBrightness: 2,
   baseColor: [0.4, 0.85, 1],
   markerColor: [0.4 / 0.85, 1 / 0.85, 1 / 0.85],
@@ -89,15 +89,20 @@ export default function Globe({
       onRender,
     })
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (canvasRef.current) {
         canvasRef.current.style.opacity = "1"
       }
-    }, 0)
+    }, 100)
 
     return () => {
+      clearTimeout(timer)
       globe.destroy()
       window.removeEventListener("resize", onResize)
+      // Clear any remaining animation frames
+      if (canvasRef.current) {
+        canvasRef.current.style.opacity = "0"
+      }
     }
   }, [])
 

@@ -3,11 +3,11 @@ import { TextReveal } from "@/components/magicui/text-reveal"
 import { ScrollAnimation } from "@/components/ui/scroll-animation"
 import { EnhancedContactForm } from "@/components/ui/enhanced-contact-form"
 import { motion } from "framer-motion"
-import { lazy, Suspense } from "react"
+import { lazy, Suspense, memo } from "react"
 
 const Globe = lazy(() => import("@/components/magicui/globe"))
 
-export function ContactSection() {
+export const ContactSection = memo(function ContactSection() {
   return (
     <ScrollAnimation id="contact" className="py-20 bg-black w-full relative overflow-hidden min-h-screen">
       {/* Background decoration with black gradient fade */}
@@ -38,37 +38,7 @@ export function ContactSection() {
         </div>
       </div>
      
-      {/* Globe at bottom - Debug version with visible border */}
-      <div
-        className="pointer-events-none z-10 "
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '400px',
-          overflow: 'hidden'
-        }}
-      >
-        <div
-          className=""
-          style={{
-            position: 'absolute',
-            top: '200px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '600px',
-            height: '600px'
-          }}
-        >
-          <div className="w-full h-full relative">
-            <Globe className="opacity-50 scale-150 w-full h-full" />
-          </div>
-        </div>
-        <div
-          className="absolute inset-0"
-        />
-      </div>
+      
     </ScrollAnimation>
   )
-}
+})
