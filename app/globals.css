@@ -128,15 +128,37 @@
   }
 }
 
+/* Performance optimizations */
+* {
+  will-change: auto;
+}
+
+.section-animated {
+  contain: layout style;
+}
+
+/* Heavy animation optimizations */
+.animate-orbit {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.animate-marquee,
+.animate-marquee-vertical {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 /* Section Animation Classes */
 .section-animated {
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .section-animated .section-content {
   opacity: 0;
   transform: translateY(30px) scale(0.95);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .section-animated.in-view .section-content {
@@ -149,6 +171,7 @@
   opacity: 0;
   transform: translateY(-30px) scale(0.95);
   animation: jump-fade-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: auto;
 }
 
 /* Hero section is always visible */
@@ -255,4 +278,18 @@
 
 .animate-marquee-vertical {
   animation: marquee-vertical var(--duration) linear infinite;
+}
+
+/* Continuous scroll animation for skills */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 20s linear infinite;
 }

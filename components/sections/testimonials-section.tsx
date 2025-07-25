@@ -52,7 +52,7 @@ const TestimonialCard = ({
   role: string
 }) => {
   return (
-    <GlowingCard className="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
+    <div className="relative w-80 cursor-pointer overflow-hidden rounded-xl border border-gray-800 p-6 backdrop-blur-sm hover:bg-gray-800/50 transition-colors bg-transparent">
       <blockquote className="text-gray-300 mb-4 italic">"{quote}"</blockquote>
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-full flex items-center justify-center">
@@ -68,7 +68,7 @@ const TestimonialCard = ({
           <p className="text-gray-400 text-xs">{role}</p>
         </div>
       </div>
-    </GlowingCard>
+    </div>
   )
 }
 
@@ -91,7 +91,7 @@ export function TestimonialsSection() {
 
         <div
           className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg"
-          style={{ "--stagger-delay": "2" } as React.CSSProperties}
+          style={{ "--stagger-delay": "2", contain: 'layout style paint' } as React.CSSProperties}
         >
           <Marquee pauseOnHover className="[--duration:20s]">
             {firstRow.map((testimonial, index) => (

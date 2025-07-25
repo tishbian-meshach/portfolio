@@ -4,7 +4,7 @@ import type React from "react"
 
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 interface DockItem {
   title: string
@@ -19,38 +19,16 @@ interface FloatingDockProps {
 
 export function FloatingDock({ items, className }: FloatingDockProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [activeSection, setActiveSection] = useState<string>("#home")
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["#home", "#about", "#work", "#contact"]
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.querySelector(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element as HTMLElement
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll() // Check initial position
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const element = document.querySelector(href)
     if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      const offsetTop = (element as HTMLElement).offsetTop
+      const offset = href === "#contact" ? 50 : 0
+      window.scrollTo({
+        top: offsetTop + offset,
+        behavior: "smooth"
       })
     }
   }
@@ -68,10 +46,7 @@ export function FloatingDock({ items, className }: FloatingDockProps) {
             <motion.a
               href={item.href}
               onClick={(e) => handleClick(e, item.href)}
-              className={cn(
-                "flex items-center justify-center w-10 h-10 rounded-full transition-colors",
-                activeSection === item.href ? "text-sky-500" : "text-gray-400 hover:text-sky-400",
-              )}
+              className="flex items-center justify-center w-10 h-10 rounded-full transition-colors text-gray-400 hover:text-sky-400"
               animate={{
                 y: hoveredIndex === index ? -8 : 0,
               }}

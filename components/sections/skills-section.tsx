@@ -13,7 +13,6 @@ interface SkillNotification {
   description: string;
   icon: string;
   color: string;
-  time: string;
 }
 
 const baseSkillNotifications: SkillNotification[] = [
@@ -22,99 +21,82 @@ const baseSkillNotifications: SkillNotification[] = [
     description: "Designing clean and modern UI in Figma.",
     icon: "📱",
     color: "#0EA5E9",
-    time: "Just now",
   },
   {
     name: "UX Research",
     description: "Mapping user flows and behaviors.",
     icon: "🧠",
     color: "#F59E0B",
-    time: "15m ago",
   },
   {
     name: "Prototyping",
     description: "Interactive mockups in Framer.",
     icon: "🎛️",
     color: "#6366F1",
-    time: "45m ago",
   },
   {
     name: "Product Strategy",
     description: "Balancing user needs and goals.",
     icon: "📊",
     color: "#10B981",
-    time: "1h ago",
   },
   {
     name: "AI Tools",
     description: "Boosting workflow with AI.",
     icon: "🤖",
     color: "#8B5CF6",
-    time: "2h ago",
   },
   {
     name: "Design Systems",
     description: "Building reusable UI kits.",
     icon: "🧩",
     color: "#38BDF8",
-    time: "3h ago",
   },
   {
     name: "Brand Design",
     description: "Thumbnails, logos, and visuals.",
     icon: "🎨",
     color: "#F43F5E",
-    time: "4h ago",
   },
   {
     name: "3D Mockups",
     description: "Scenes and UI in Spline.",
     icon: "🌐",
     color: "#FF8C00",
-    time: "5h ago",
   },
   {
     name: "Dev Handoff",
     description: "Code-ready design in Next.js.",
     icon: "💻",
     color: "#000000",
-    time: "7h ago",
   },
   {
     name: "AI Automation",
     description: "Quick mockups via prompts.",
     icon: "⚡",
     color: "#22C55E",
-    time: "8h ago",
   },
   {
     name: "Client Projects",
     description: "Designing for creators & brands.",
     icon: "🤝",
     color: "#3B82F6",
-    time: "1 day ago",
   },
   {
     name: "Problem Solving",
     description: "Fixing UX issues with AI.",
     icon: "🧠",
     color: "#A855F7",
-    time: "2 days ago",
   },
 ];
 
-// Create a continuous loop by repeating the notifications multiple times
-const skillNotifications = Array.from(
-  { length: 100 },
-  () => baseSkillNotifications
-).flat();
+const skillNotifications = baseSkillNotifications;
 
 const SkillNotification = ({
   name,
   description,
   icon,
   color,
-  time,
 }: SkillNotification) => {
   return (
     <figure
@@ -138,10 +120,8 @@ const SkillNotification = ({
           <span className="text-md">{icon}</span>
         </div>
         <div className="flex flex-col overflow-hidden">
-          <figcaption className="flex flex-row items-center whitespace-pre text-lg font-light dark:text-white ">
-            <span className="text-sm sm:text-md">{name}</span>
-            <span className="mx-1">·</span>
-            <span className="text-xs text-gray-400">{time}</span>
+          <figcaption className="text-sm sm:text-md font-light dark:text-white">
+            {name}
           </figcaption>
           <p className="text-xs font-thin dark:text-white/60">{description}</p>
         </div>
@@ -173,8 +153,8 @@ export function SkillsSection() {
         >
           {/* Left side - Orbiting Circles */}
           <div
-            className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0  backdrop-blur-sm overflow-hidden"
-
+            className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden"
+            style={{ contain: 'layout style paint' }}
           >
             <div className="relative flex w-full items-center justify-center h-full">
               <OrbitingCircles
@@ -261,16 +241,14 @@ export function SkillsSection() {
             </div>
           </div>
 
-          {/* Right side - Animated List */}
-          <div className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0  overflow-hidden" style={{
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",}}>
-            <div className="relative pt-12 flex h-full w-full flex-col overflow-hidden p-4">
-              <AnimatedList className="flex-1">
-                {skillNotifications.map((item, idx) => (
+          {/* Right side - Continuous Scrolling List */}
+          <div className="relative h-[500px] w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 overflow-hidden">
+            <div className="animate-scroll-up">
+              <div className="flex flex-col gap-4 p-4">
+                {[...skillNotifications, ...skillNotifications].map((item, idx) => (
                   <SkillNotification {...item} key={idx} />
                 ))}
-              </AnimatedList>
+              </div>
             </div>
 
             {/* Bottom fade gradient */}

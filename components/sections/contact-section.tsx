@@ -3,7 +3,9 @@ import { TextReveal } from "@/components/magicui/text-reveal"
 import { ScrollAnimation } from "@/components/ui/scroll-animation"
 import { EnhancedContactForm } from "@/components/ui/enhanced-contact-form"
 import { motion } from "framer-motion"
-import Globe from "@/components/magicui/globe"
+import { lazy, Suspense } from "react"
+
+const Globe = lazy(() => import("@/components/magicui/globe"))
 
 export function ContactSection() {
   return (

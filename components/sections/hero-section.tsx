@@ -2,19 +2,11 @@
 
 import type React from "react"
 
-import { FloatingDock } from "@/components/ui/floating-dock"
 import { FlipWords } from "@/components/magicui/flip-words"
 import { RainbowButton } from "@/components/magicui/rainbow-button"
 import { SplineViewer } from "@/components/ui/spline-viewer"
 import { StripeBgGuides } from "@/components/ui/stripe-bg-guides"
-import { Home, User, Briefcase, Mail, Download } from "lucide-react"
-
-const navItems = [
-  { title: "Home", icon: <Home className="h-4 w-4" />, href: "#home" },
-  { title: "About", icon: <User className="h-4 w-4" />, href: "#about" },
-  { title: "Work", icon: <Briefcase className="h-4 w-4" />, href: "#work" },
-  { title: "Contact", icon: <Mail className="h-4 w-4" />, href: "#contact" },
-]
+import { Download } from "lucide-react"
 
 const roles = ["UI/UX Designer", "Graphic Designer", "AI-Augmented Developer", "Creative Technologist"]
 
@@ -43,10 +35,7 @@ export function HeroSection() {
       {/* Blue light gradient background */}
       <div className="absolute hidden inset-0 bg-gradient-to-br from-sky-500/10 via-black/10 to-transparent mix-blend-screen z-5" />
 
-      {/* Navigation */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-        <FloatingDock items={navItems} />
-      </div>
+
 
       <div
         className=" flex-col hidden absolute top-8 z-30 right-10 sm:flex-row gap-10  justify-center items-center"

@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useCallback } from "react"
 
 interface ScrollAnimationProps {
   children: React.ReactNode
@@ -13,37 +12,39 @@ interface ScrollAnimationProps {
 
 export function ScrollAnimation({ children, className = "", threshold = 0.1, id }: ScrollAnimationProps) {
   const ref = useRef<HTMLElement>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+
+  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      const target = entry.target as HTMLElement
+      if (entry.isIntersecting) {
+        target.classList.remove("out-of-view")
+        target.classList.add("in-view")
+      } else {
+        target.classList.remove("in-view")
+        target.classList.add("out-of-view")
+      }
+    })
+  }, [])
 
   useEffect(() => {
     const element = ref.current
     if (!element) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Section is entering viewport
-            entry.target.classList.remove("out-of-view")
-            entry.target.classList.add("in-view")
-          } else {
-            // Section is leaving viewport
-            entry.target.classList.remove("in-view")
-            entry.target.classList.add("out-of-view")
-          }
-        })
-      },
-      {
-        threshold,
-        rootMargin: "0px 0px -10% 0px", // Trigger when section is 10% visible from bottom
-      },
-    )
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      threshold,
+      rootMargin: "0px 0px -10% 0px",
+    })
 
-    observer.observe(element)
+    observerRef.current.observe(element)
 
     return () => {
-      observer.unobserve(element)
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+        observerRef.current = null
+      }
     }
-  }, [threshold])
+  }, [threshold, handleIntersection])
 
   return (
     <section ref={ref} id={id} className={`section-animated ${className}`}>
