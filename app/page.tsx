@@ -51,10 +51,10 @@ export default function Home() {
         <HeroSection />
         <LazySection component={AboutSection} id="about" />
         <LazySection component={WorkSection} id="work" />
-        <HeavyLazySection component={SkillsSection} id="skills" />
+        <LazySection component={SkillsSection} id="skills" />
         <LazySection component={TestimonialsSection} id="testimonials" />
         <Suspense fallback={<div className="min-h-screen bg-black" />}>
-          <HeavyLazySection component={ContactSection} id="contact" />
+          <LazySection component={ContactSection} id="contact" />
         </Suspense>
         <LazySection component={Footer} id="footer" />
       </main>
