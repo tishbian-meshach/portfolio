@@ -40,22 +40,32 @@ export function StripeBgGuides({
   className = "",
   solidLines = [],
   animated = true,
-  animationDuration = 62,
-  animationDelay = 0.8,
+  animationDuration = 90, // Slower animation for smoother performance
+  animationDelay = 1.2,
   glowColor = "hsl(var(--accent))",
-  //   glowColor = "#D2F583",
   glowSize = "10vh",
   glowOpacity = 0.4,
   randomize = true,
-  randomInterval = 9000,
+  randomInterval = 12000, // Less frequent randomization
   direction = "both",
   easing = "spring",
   responsive = false,
   minColumnWidth = "4rem",
-  maxActiveColumns = 3,
+  maxActiveColumns = 2, // Reduced from 3 for better performance
   darkMode = false,
   contained = false,
 }: AnimatedBackgroundGuidesProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0)
 
   const columns = useMemo(() => {
@@ -162,21 +172,21 @@ export function StripeBgGuides({
                   solidLines.includes(index + 1)
                     ? { background: lineColors.solid }
                     : {
-                        backgroundImage: `linear-gradient(to bottom, ${lineColors.dashed} 50%, transparent 50%)`,
-                        backgroundSize: "1px 8px",
-                      }
+                      backgroundImage: `linear-gradient(to bottom, ${lineColors.dashed} 50%, transparent 50%)`,
+                      backgroundSize: "1px 8px",
+                    }
                 }
               >
+                {/* Disable animations on mobile for performance */}
                 <AnimatePresence>
-                  {animated && activeColumns[index] && (
+                  {animated && activeColumns[index] && !isMobile && (
                     <motion.div
                       key={`glow-${index}`}
                       className="absolute w-full"
                       style={{
                         height: glowSize,
-                        background: `linear-gradient(to bottom, transparent, ${glowColor}, ${
-                          darkMode ? "black" : "white"
-                        })`,
+                        background: `linear-gradient(to bottom, transparent, ${glowColor}, ${darkMode ? "black" : "white"
+                          })`,
                         opacity: glowOpacity,
                       }}
                       initial={
@@ -197,7 +207,7 @@ export function StripeBgGuides({
                       transition={{
                         duration: animationDuration,
                         repeat: Number.POSITIVE_INFINITY,
-                        ease: easingFunctions[easing],
+                        ease: easingFunctions[easing] as any,
                         delay: index * animationDelay,
                       }}
                     />

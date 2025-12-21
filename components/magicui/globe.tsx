@@ -4,17 +4,18 @@ import createGlobe, { COBEOptions } from "cobe";
 import { useCallback, useEffect, useRef } from "react"
 
 import { cn } from "@/lib/utils"
- 
+
+// Optimized config with reduced samples for better performance
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => {},
-  devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+  onRender: () => { },
+  devicePixelRatio: Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 1.5), // Cap at 1.5
   phi: 0,
   theta: 0.3,
   dark: 1,
   diffuse: 0.4,
-  mapSamples: 8000,
+  mapSamples: 4000, // Reduced from 8000
   mapBrightness: 2,
   baseColor: [0.4, 0.85, 1],
   markerColor: [0.4 / 0.85, 1 / 0.85, 1 / 0.85],
@@ -46,6 +47,8 @@ export default function Globe({
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
   const r = useRef(0)
+  const isVisibleRef = useRef(true)
+  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null)
 
   const updatePointerInteraction = (value: number | null) => {
     pointerInteracting.current = value
@@ -64,10 +67,13 @@ export default function Globe({
 
   const onRender = useCallback(
     (state: Record<string, any>) => {
-      if (!pointerInteracting.current) phi += 0.005
+      // Only animate when visible
+      if (!pointerInteracting.current && isVisibleRef.current) {
+        phi += 0.003 // Slightly slower rotation
+      }
       state.phi = phi + r.current
       state.width = width * 2,
-      state.height = width * 2
+        state.height = width * 2
     },
     [],
   )
@@ -82,7 +88,19 @@ export default function Globe({
     window.addEventListener("resize", onResize)
     onResize()
 
-    const globe = createGlobe(canvasRef.current!, {
+    // Visibility observer to pause when off-screen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisibleRef.current = entries[0]?.isIntersecting ?? false
+      },
+      { threshold: 0 }
+    )
+
+    if (canvasRef.current) {
+      observer.observe(canvasRef.current)
+    }
+
+    globeRef.current = createGlobe(canvasRef.current!, {
       ...config,
       width: width * 2,
       height: width * 2,
@@ -97,9 +115,9 @@ export default function Globe({
 
     return () => {
       clearTimeout(timer)
-      globe.destroy()
+      globeRef.current?.destroy()
+      observer.disconnect()
       window.removeEventListener("resize", onResize)
-      // Clear any remaining animation frames
       if (canvasRef.current) {
         canvasRef.current.style.opacity = "0"
       }
@@ -107,7 +125,7 @@ export default function Globe({
   }, [])
 
   return (
-    <div className={cn("absolute inset-0 z-10 mx-auto aspect-[1/1] w-full max-w-[600px]", className)}>
+    <div className={cn("absolute inset-0 z-10 mx-auto aspect-[1/1] w-full max-w-[600px]", className)} style={{ contain: 'layout paint' }}>
       <canvas
         ref={canvasRef}
         style={{ background: "transparent" }}

@@ -21,6 +21,9 @@ export function FlickeringGrid({
   className,
 }: FlickeringGridProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const isVisibleRef = useRef(true)
+  const rafRef = useRef<number | null>(null)
+  const lastFrameTimeRef = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -29,40 +32,67 @@ export function FlickeringGrid({
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    // Target ~15fps for flickering effect (sufficient for this visual)
+    const frameInterval = 1000 / 15
+
     const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+      const rect = canvas.getBoundingClientRect()
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      ctx.scale(dpr, dpr)
+      canvas.style.width = `${rect.width}px`
+      canvas.style.height = `${rect.height}px`
     }
 
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // Visibility observer to pause when off-screen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisibleRef.current = entries[0]?.isIntersecting ?? false
+      },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
 
-      const cols = Math.floor(canvas.width / (squareSize + gridGap))
-      const rows = Math.floor(canvas.height / (squareSize + gridGap))
+    const animate = (timestamp: number) => {
+      rafRef.current = requestAnimationFrame(animate)
+
+      // Skip if not visible or not enough time has passed
+      if (!isVisibleRef.current) return
+      if (timestamp - lastFrameTimeRef.current < frameInterval) return
+
+      lastFrameTimeRef.current = timestamp
+
+      const rect = canvas.getBoundingClientRect()
+      ctx.clearRect(0, 0, rect.width, rect.height)
+
+      const cols = Math.floor(rect.width / (squareSize + gridGap))
+      const rows = Math.floor(rect.height / (squareSize + gridGap))
 
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           if (Math.random() < flickerChance) {
-            ctx.fillStyle = `${color}${Math.floor(Math.random() * maxOpacity * 255)
-              .toString(16)
-              .padStart(2, "0")}`
+            const opacity = Math.floor(Math.random() * maxOpacity * 255)
+            ctx.fillStyle = `${color}${opacity.toString(16).padStart(2, "0")}`
             ctx.fillRect(i * (squareSize + gridGap), j * (squareSize + gridGap), squareSize, squareSize)
           }
         }
       }
-
-      requestAnimationFrame(animate)
     }
 
-    animate()
+    rafRef.current = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
+      observer.disconnect()
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
     }
   }, [squareSize, gridGap, flickerChance, color, maxOpacity])
 
-  return <canvas ref={canvasRef} className={cn("pointer-events-none", className)} />
+  return <canvas ref={canvasRef} className={cn("pointer-events-none", className)} style={{ contain: 'strict' }} />
 }

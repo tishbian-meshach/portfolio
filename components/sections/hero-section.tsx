@@ -18,30 +18,32 @@ export function HeroSection() {
     >
       {/* Stripe Background Guides - Deepest layer */}
       <div className="absolute inset-0 z-0 ">
-        <StripeBgGuides
-          columnCount={4}
-          className="md:hidden"
-          animated={true}
-          animationDuration={8}
-          glowColor="#38bdf8"
-          randomize={true}
-          randomInterval={3000}
-          contained={true}
-          darkMode={true}
-          glowOpacity={1.2}
-        />
-        <StripeBgGuides
-          columnCount={8}
-          className="hidden md:block"
-          animated={true}
-          animationDuration={8}
-          glowColor="#38bdf8"
-          randomize={true}
-          randomInterval={3000}
-          contained={true}
-          darkMode={true}
-          glowOpacity={1.2}
-        />
+        <div className="md:hidden block h-full w-full">
+          <StripeBgGuides
+            columnCount={4}
+            animated={true}
+            animationDuration={8}
+            glowColor="#38bdf8"
+            randomize={true}
+            randomInterval={3000}
+            contained={true}
+            darkMode={true}
+            glowOpacity={1.2}
+          />
+        </div>
+        <div className="hidden md:block h-full w-full">
+          <StripeBgGuides
+            columnCount={8}
+            animated={true}
+            animationDuration={8}
+            glowColor="#38bdf8"
+            randomize={true}
+            randomInterval={3000}
+            contained={true}
+            darkMode={true}
+            glowOpacity={1.2}
+          />
+        </div>
       </div>
 
       <div className="absolute inset-0 bg-black/20 z-20" />

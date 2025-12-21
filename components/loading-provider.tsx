@@ -76,7 +76,7 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
       console.log('Fallback timeout - forcing load complete')
       removeLoadingItem('spline')
       removeLoadingItem('page')
-    }, 5000)
+    }, 3000) // Reduced from 5000 for faster perceived performance
 
     return () => {
       window.removeEventListener('splineLoaded', handleSplineLoad)

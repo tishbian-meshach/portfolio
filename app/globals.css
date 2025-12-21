@@ -307,3 +307,52 @@
     }
   }
 }
+
+/* Stripe Background Glow Animation - CSS-based for performance */
+@keyframes stripe-glow-move {
+  0% {
+    top: 100%;
+  }
+  50% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.stripe-glow-animation {
+  animation: stripe-glow-move var(--duration, 90s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: top;
+}
+
+/* Reduced motion support for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-ping,
+  .animate-orbit,
+  .animate-marquee,
+  .animate-scroll-up,
+  .stripe-glow-animation {
+    animation: none !important;
+  }
+}
+
+/* Containment for performance isolation */
+.section-animated {
+  contain: layout style;
+}
+
+/* Canvas elements should use strict containment */
+canvas {
+  contain: strict;
+}

@@ -71,9 +71,9 @@ class X {
   };
 
   render: () => void = this.#render.bind(this);
-  onBeforeRender: (state: { elapsed: number; delta: number }) => void = () => {};
-  onAfterRender: (state: { elapsed: number; delta: number }) => void = () => {};
-  onAfterResize: (size: SizeData) => void = () => {};
+  onBeforeRender: (state: { elapsed: number; delta: number }) => void = () => { };
+  onAfterRender: (state: { elapsed: number; delta: number }) => void = () => { };
+  onAfterResize: (size: SizeData) => void = () => { };
   isDisposed: boolean = false;
 
   constructor(config: XConfig) {
@@ -473,7 +473,7 @@ class Y extends MeshPhysicalMaterial {
 }
 
 const skillsConfig = {
-  count: 12,
+  count: 8, // Reduced from 12 for better performance
   colors: [0x8b5cf6, 0xf59e0b, 0x10b981], // Purple, Amber, Emerald
   ambientColor: 0xffffff,
   ambientIntensity: 0.8,
@@ -521,10 +521,10 @@ function createPointerData(options: Partial<PointerData> & { domElement: HTMLEle
     position: new Vector2(),
     nPosition: new Vector2(),
     hover: false,
-    onEnter: () => {},
-    onMove: () => {},
-    onClick: () => {},
-    onLeave: () => {},
+    onEnter: () => { },
+    onMove: () => { },
+    onClick: () => { },
+    onLeave: () => { },
     ...options,
   };
   if (!pointerMap.has(options.domElement)) {
@@ -609,7 +609,7 @@ class Z extends InstancedMesh {
     const roomEnv = new RoomEnvironment();
     const pmrem = new PMREMGenerator(renderer);
     const envTexture = pmrem.fromScene(roomEnv).texture;
-    const geometry = new CapsuleGeometry(0.8, 0.4, 4, 8);
+    const geometry = new CapsuleGeometry(0.8, 0.4, 3, 6); // Simplified from (4, 8)
     const material = new Y({ envMap: envTexture, ...config.materialParams });
     material.envMapRotation.x = -Math.PI / 2;
     super(geometry, material, config.count);
