@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
-  import React from "react";
+import React from "react";
+import { useInView } from "motion/react";
 
-  export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   children?: React.ReactNode;
   reverse?: boolean;
@@ -29,6 +30,9 @@ export function OrbitingCircles({
   const calculatedDuration = duration / speed;
   const childArray = React.Children.toArray(children);
 
+  const ref = React.useRef(null)
+  const isInView = useInView(ref)
+
   return (
     <>
       {path && (
@@ -45,6 +49,7 @@ export function OrbitingCircles({
           />
         </svg>
       )}
+      <div ref={ref} className="absolute inset-0 pointer-events-none" />
       {childArray.map((child, index) => {
         const angle = startAngle + (360 / childArray.length) * index; // MODIFIED
         return (
@@ -56,6 +61,7 @@ export function OrbitingCircles({
                 "--radius": radius,
                 "--angle": angle,
                 "--icon-size": `${iconSize}px`,
+                animationPlayState: isInView ? 'running' : 'paused',
               } as React.CSSProperties
             }
             className={cn(

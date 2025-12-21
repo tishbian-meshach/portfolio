@@ -57,6 +57,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
   .theme {
     --animate-grid: grid 15s linear infinite;
   }
@@ -66,9 +67,11 @@
   * {
     @apply border-border;
   }
+
   html {
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -80,36 +83,44 @@
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
+
   .backdrop-blur-md {
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
   }
+
   .backdrop-blur-lg {
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
   }
+
   .backdrop-blur-xl {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
   }
+
   .backdrop-blur-2xl {
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
   }
+
   .backdrop-blur-3xl {
     -webkit-backdrop-filter: blur(32px);
     backdrop-filter: blur(32px);
   }
 }
+
 @keyframes jump-fade-in {
   0% {
     opacity: 0;
     transform: translateY(20px);
   }
+
   50% {
     opacity: 0.5;
     transform: translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -121,10 +132,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   50% {
     opacity: 0.5;
     transform: translateY(-10px);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-20px);
@@ -190,11 +203,11 @@
 }
 
 /* Stagger animation for child elements */
-.section-animated.in-view .section-content > * {
+.section-animated.in-view .section-content>* {
   animation-delay: calc(var(--stagger-delay, 0) * 0.1s);
 }
 
-.section-animated.out-of-view .section-content > * {
+.section-animated.out-of-view .section-content>* {
   animation-delay: calc(var(--stagger-delay, 0) * 0.05s);
 }
 
@@ -203,9 +216,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -217,13 +232,14 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.section-content > * {
+.section-content>* {
   animation: fadeInUp 0.6s ease-out forwards;
   animation-delay: calc(var(--stagger-delay, 0) * 0.1s);
   opacity: 0;
@@ -232,12 +248,11 @@
 /* Orbit Animation */
 @keyframes orbit {
   0% {
-    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px))
-      rotate(calc(var(--angle) * -1deg));
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
   }
+
   100% {
-    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px))
-      rotate(calc((var(--angle) * -1deg) - 360deg));
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
   }
 }
 
@@ -250,6 +265,7 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -259,6 +275,7 @@
   0% {
     transform: translateY(0%);
   }
+
   100% {
     transform: translateY(-100%);
   }
@@ -288,6 +305,7 @@
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-50%);
   }
@@ -299,11 +317,12 @@
 
 @theme inline {
   @keyframes grid {
-  0% {
-    transform: translateY(-50%);
+    0% {
+      transform: translateY(-50%);
     }
-  100% {
-    transform: translateY(0);
+
+    100% {
+      transform: translateY(0);
     }
   }
 }
@@ -313,9 +332,11 @@
   0% {
     top: 100%;
   }
+
   50% {
     top: -100%;
   }
+
   100% {
     top: 100%;
   }
@@ -329,6 +350,7 @@
 
 /* Reduced motion support for accessibility and performance */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -337,7 +359,7 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .animate-ping,
   .animate-orbit,
   .animate-marquee,
@@ -350,6 +372,10 @@
 /* Containment for performance isolation */
 .section-animated {
   contain: layout style;
+  content-visibility: auto;
+  /* Huge performance win: skips rendering off-screen content */
+  contain-intrinsic-size: 1px 1000px;
+  /* Estimated height to prevent scroll bar jumping */
 }
 
 /* Canvas elements should use strict containment */

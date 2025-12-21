@@ -7,9 +7,15 @@ interface LazySectionProps {
   id: string
   className?: string
   rootMargin?: string
+  unmountOnExit?: boolean
 }
 
-export function LazySection({ component: Component, id, className = "", rootMargin = "200px" }: LazySectionProps) {
+export function LazySection({
+  component: Component,
+  id,
+  className = "",
+  rootMargin = "200px"
+}: LazySectionProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
@@ -18,7 +24,6 @@ export function LazySection({ component: Component, id, className = "", rootMarg
     entries.forEach((entry) => {
       if (entry.isIntersecting && !isLoaded) {
         setIsLoaded(true)
-        // Disconnect observer after loading to prevent re-triggering
         if (observerRef.current) {
           observerRef.current.disconnect()
         }
@@ -32,7 +37,7 @@ export function LazySection({ component: Component, id, className = "", rootMarg
 
     observerRef.current = new IntersectionObserver(handleIntersection, {
       rootMargin,
-      threshold: 0.05
+      threshold: 0.01 // Trigger as soon as 1% is visible
     })
 
     observerRef.current.observe(element)
@@ -46,8 +51,18 @@ export function LazySection({ component: Component, id, className = "", rootMarg
   }, [rootMargin, handleIntersection])
 
   return (
-    <div ref={ref} id={id} className={className}>
-      {isLoaded ? <Component /> : <div className="min-h-screen bg-black" />}
+    <div
+      ref={ref}
+      id={id}
+      className={className}
+      style={{
+        minHeight: isLoaded ? 'auto' : '100vh',
+        contentVisibility: isLoaded ? 'auto' : 'hidden',
+        containIntrinsicSize: '1px 1000px',
+        contain: 'paint layout'
+      }}
+    >
+      {isLoaded ? <Component /> : <div className="w-full h-full min-h-[50vh]" />}
     </div>
   )
 }

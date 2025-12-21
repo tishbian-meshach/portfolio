@@ -1,6 +1,7 @@
 "use client"
 
-import type React from "react"
+import { useRef } from "react"
+import { useInView } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -23,8 +24,12 @@ export default function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref)
+
   return (
     <div
+      ref={ref}
       {...props}
       className={cn(
         "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
@@ -34,6 +39,11 @@ export default function Marquee({
         },
         className,
       )}
+      style={{
+        // Pause animation when not in view
+        animationPlayState: isInView ? 'running' : 'paused',
+        ...(props.style || {})
+      }}
     >
       {Array(repeat)
         .fill(0)
@@ -46,6 +56,10 @@ export default function Marquee({
               "group-hover:[animation-play-state:paused]": pauseOnHover,
               "[animation-direction:reverse]": reverse,
             })}
+            style={{
+              // Inherit pause state from parent
+              animationPlayState: 'inherit'
+            }}
           >
             {children}
           </div>

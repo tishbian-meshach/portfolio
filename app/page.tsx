@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
-    
+
     const handleScroll = () => {
       clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
@@ -26,7 +26,7 @@ export default function Home() {
           const documentHeight = document.documentElement.scrollHeight
           const windowHeight = window.innerHeight
           const isAtBottom = scrollTop + windowHeight >= documentHeight - 100
-          
+
           setIsNavVisible(!isAtBottom)
         } else {
           setIsNavVisible(true)

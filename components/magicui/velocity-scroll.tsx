@@ -2,6 +2,7 @@
 import {
   motion,
   useAnimationFrame,
+  useInView,
   useMotionValue,
   useScroll,
   useSpring,
@@ -42,6 +43,7 @@ function ParallaxText({ children, baseVelocity = 100, ...props }: ParallaxProps)
   const [repetitions, setRepetitions] = useState(1)
   const containerRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(containerRef)
 
   useEffect(() => {
     const calculateRepetitions = () => {
@@ -62,6 +64,8 @@ function ParallaxText({ children, baseVelocity = 100, ...props }: ParallaxProps)
 
   const directionFactor = React.useRef<number>(1)
   useAnimationFrame((t, delta) => {
+    if (!isInView) return // Pause animation when not in view (User requested optimization)
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
 
     if (velocityFactor.get() < 0) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import React, {
   ComponentPropsWithoutRef,
   useEffect,
@@ -37,7 +37,12 @@ export const AnimatedList = React.memo(
       [children],
     );
 
+    const ref = React.useRef(null);
+    const isInView = useInView(ref);
+
     useEffect(() => {
+      if (!isInView) return;
+
       if (index < childrenArray.length - 1) {
         const timeout = setTimeout(() => {
           setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length);
@@ -45,7 +50,7 @@ export const AnimatedList = React.memo(
 
         return () => clearTimeout(timeout);
       }
-    }, [index, delay, childrenArray.length]);
+    }, [index, delay, childrenArray.length, isInView]);
 
     const itemsToShow = useMemo(() => {
       const result = childrenArray.slice(0, index + 1).reverse();
@@ -54,6 +59,7 @@ export const AnimatedList = React.memo(
 
     return (
       <div
+        ref={ref}
         className={cn(`flex flex-col items-center gap-4`, className)}
         {...props}
       >
