@@ -5,10 +5,50 @@ import styled from 'styled-components'
 import { useLoading } from './loading-provider'
 
 const LoadingScreen = () => {
-  const { loadingItems } = useLoading()
-  const totalItems = 3 // initial, spline, page
-  const loadedItems = totalItems - loadingItems.size
-  const progress = (loadedItems / totalItems) * 100
+  const { loadingItems, setIsLoading } = useLoading()
+  const [progress, setProgress] = React.useState(0)
+  const [loadingText, setLoadingText] = React.useState('Initializing')
+
+  React.useEffect(() => {
+    // Simulated loading text cycle
+    const texts = [
+      'Simulating environment', 
+      'Loading assets', 
+      'Initializing graphics', 
+      'Preparing interface',
+      'Mounting components',
+      'Optimizing performance',
+      'Starting experience'
+    ]
+    
+    let textIndex = 0
+    const textInterval = setInterval(() => {
+      textIndex = (textIndex + 1) % texts.length
+      setLoadingText(texts[textIndex])
+    }, 250) // Change text every 250ms
+
+    // Simulated progress bar (fast then slow then fast)
+    let currentProgress = 0
+    const progressInterval = setInterval(() => {
+      if (currentProgress >= 100) {
+        clearInterval(progressInterval)
+        clearInterval(textInterval)
+        // Wait a tiny bit at 100% then hide loading
+        setTimeout(() => setIsLoading(false), 500)
+        return
+      }
+
+      // Non-linear progress simulation
+      const increment = Math.random() * (currentProgress > 70 ? 2 : 5) 
+      currentProgress = Math.min(currentProgress + increment, 100)
+      setProgress(currentProgress)
+    }, 50) 
+
+    return () => {
+      clearInterval(textInterval)
+      clearInterval(progressInterval)
+    }
+  }, [setIsLoading])
 
   return (
     <StyledWrapper>
@@ -20,8 +60,8 @@ const LoadingScreen = () => {
             <div className="cube" />
             <div className="cube" />
           </div>
-          <div className="debug-info">
-            Loading: {Array.from(loadingItems).join(', ') || 'Complete'}
+         <div className="debug-info">
+            Loading: {loadingText}
           </div>
           <div className="progress-container -mt-6">
             <div className="progress-bar">
@@ -74,9 +114,9 @@ const StyledWrapper = styled.div`
     background: linear-gradient(145deg, #00e4ff, #006aff);
     border-radius: 12px;
     box-shadow:
-      0 0 12px rgba(0, 228, 255, 0.6),
-      inset 0 0 8px rgba(0, 228, 255, 0.8),
-      inset 3px 3px 8px rgba(0, 50, 120, 0.4);
+      0 0 12px rgba(0, 228, 255, 0.4),
+      inset 0 0 8px rgba(0, 228, 255, 0.6),
+      inset 3px 3px 8px rgba(0, 50, 120, 0.2);
     animation: pulse 1.6s ease-in-out infinite;
     transition: transform 0.4s ease;
   }
@@ -126,7 +166,7 @@ const StyledWrapper = styled.div`
     background: linear-gradient(90deg, #00e4ff, #006aff);
     border-radius: 2px;
     transition: width 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 228, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 228, 255, 0.3);
   }
 
   .progress-text {
@@ -150,7 +190,7 @@ const StyledWrapper = styled.div`
       transform: scale(1);
       box-shadow:
         0 0 15px rgba(0, 228, 255, 0.7),
-        inset 0 0 8px rgba(0, 228, 255, 0.8);
+        inset 0 0 8px rgba(0, 228, 255, 0.6);
     }
     50% {
       transform: scale(1.3);

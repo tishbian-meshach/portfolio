@@ -42,28 +42,15 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   }, [loadingItems])
 
   useEffect(() => {
-    const handleSplineLoad = () => {
-      console.log('Spline loaded')
-      removeLoadingItem('spline')
-    }
-
-    const handleSplineError = () => {
-      console.log('Spline error')
-      removeLoadingItem('spline')
-    }
-
     const handlePageLoad = () => {
       console.log('Page loaded')
       removeLoadingItem('page')
     }
 
     // Add loading items
-    addLoadingItem('spline')
     addLoadingItem('page')
 
     // Set up event listeners
-    window.addEventListener('splineLoaded', handleSplineLoad)
-    window.addEventListener('splineError', handleSplineError)
     window.addEventListener('load', handlePageLoad)
 
     // Check if document is already loaded
@@ -74,13 +61,10 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
     // Fallback timeout to prevent infinite loading
     const fallbackTimer = setTimeout(() => {
       console.log('Fallback timeout - forcing load complete')
-      removeLoadingItem('spline')
       removeLoadingItem('page')
-    }, 3000) // Reduced from 5000 for faster perceived performance
+    }, 2000)
 
     return () => {
-      window.removeEventListener('splineLoaded', handleSplineLoad)
-      window.removeEventListener('splineError', handleSplineError)
       window.removeEventListener('load', handlePageLoad)
       clearTimeout(fallbackTimer)
     }
