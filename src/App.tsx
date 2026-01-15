@@ -46,7 +46,7 @@ export default function App() {
     <>
       <main className="min-h-screen bg-black text-white">
         <HeroSection />
-        <LazySection component={AboutSection} id="about" />
+        <AboutSection/>
         <LazySection component={WorkSection} id="work" />
         <LazySection component={SkillsSection} id="skills" />
         {/* <LazySection component={TestimonialsSection} id="testimonials" /> */}

@@ -17,7 +17,10 @@ export function LazySection({
   rootMargin = "50px"
 }: LazySectionProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const [hasLoaded, setHasLoaded] = useState(false)
+  const [measuredHeight, setMeasuredHeight] = useState<number | null>(null)
   const ref = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const element = ref.current
@@ -26,8 +29,10 @@ export function LazySection({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Mount when entering viewport, unmount when leaving
           setIsVisible(entry.isIntersecting)
+          if (entry.isIntersecting) {
+            setHasLoaded(true)
+          }
         })
       },
       {
@@ -43,22 +48,37 @@ export function LazySection({
     }
   }, [rootMargin])
 
+  // Measure content height after mounting to preserve it when unmounted
+  useEffect(() => {
+    if (isVisible && contentRef.current) {
+      const height = contentRef.current.offsetHeight
+      if (height > 0) {
+        setMeasuredHeight(height)
+      }
+    }
+  }, [isVisible])
+
+  const placeholderHeight = measuredHeight || '100vh'
+
   return (
     <div
       ref={ref}
       id={id}
       className={className}
       style={{
-        minHeight: '100vh',
-        contain: 'layout style paint'
+        minHeight: isVisible ? 'auto' : placeholderHeight,
+        contain: 'layout style paint',
+        overflowAnchor: 'none' // Prevent scroll anchoring from causing jumps
       }}
     >
       {isVisible ? (
-        <React.Suspense fallback={<div className="w-full h-full min-h-[50vh] bg-black" />}>
-          <Component key={id} /> {/* key prop forces fresh mount each time */}
+        <React.Suspense fallback={<div className="w-full min-h-[50vh] bg-black" style={{ height: placeholderHeight }} />}>
+          <div ref={contentRef}>
+            <Component key={hasLoaded ? `${id}-loaded` : id} />
+          </div>
         </React.Suspense>
       ) : (
-        <div className="w-full h-full min-h-[50vh] bg-black" />
+        <div className="w-full bg-black" style={{ height: placeholderHeight }} />
       )}
     </div>
   )
