@@ -58,7 +58,7 @@ export function LazySection({
     }
   }, [isVisible])
 
-  const placeholderHeight = measuredHeight || '100vh'
+  const styleHeight = measuredHeight ? `${measuredHeight}px` : '100vh'
 
   return (
     <div
@@ -66,18 +66,17 @@ export function LazySection({
       id={id}
       className={className}
       style={{
-        minHeight: isVisible ? 'auto' : placeholderHeight,
-        contain: 'layout style paint'
+        minHeight: styleHeight
       }}
     >
       {isVisible ? (
-        <React.Suspense fallback={<div className="w-full min-h-[50vh] bg-black" style={{ height: placeholderHeight }} />}>
+        <React.Suspense fallback={<div className="w-full h-full" style={{ minHeight: styleHeight }} />}>
           <div ref={contentRef}>
             <Component key={hasLoaded ? `${id}-loaded` : id} />
           </div>
         </React.Suspense>
       ) : (
-        <div className="w-full bg-black" style={{ height: placeholderHeight }} />
+        <div className="w-full" style={{ height: styleHeight }} />
       )}
     </div>
   )
