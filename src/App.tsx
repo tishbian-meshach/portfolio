@@ -48,7 +48,7 @@ export default function App() {
         <HeroSection />
         <AboutSection/>
         <LazySection component={WorkSection} id="work" />
-        <LazySection component={SkillsSection} id="skills" />
+        <SkillsSection/>
         {/* <LazySection component={TestimonialsSection} id="testimonials" /> */}
         <LazySection 
           component={() => (

@@ -67,8 +67,7 @@ export function LazySection({
       className={className}
       style={{
         minHeight: isVisible ? 'auto' : placeholderHeight,
-        contain: 'layout style paint',
-        overflowAnchor: 'none' // Prevent scroll anchoring from causing jumps
+        contain: 'layout style paint'
       }}
     >
       {isVisible ? (
