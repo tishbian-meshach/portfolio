@@ -48,16 +48,29 @@ export function LazySection({
     }
   }, [rootMargin])
 
-  // Measure content height after mounting to preserve it when unmounted
+  // Use ResizeObserver to keep height accurate to content
   useEffect(() => {
     if (isVisible && contentRef.current) {
-      const height = contentRef.current.offsetHeight
-      if (height > 0) {
-        setMeasuredHeight(height)
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+           // Use borderBoxSize if available for better accuracy
+           const height = entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height;
+           if (height > 0) {
+             setMeasuredHeight(height)
+           }
+        }
+      })
+      
+      resizeObserver.observe(contentRef.current)
+      
+      return () => {
+        resizeObserver.disconnect()
       }
     }
   }, [isVisible])
 
+  // If we have a measured height, use it. Otherwise default to 100vh only if never loaded.
+  // Once loaded, we trust the measurement or auto.
   const styleHeight = measuredHeight ? `${measuredHeight}px` : '100vh'
 
   return (
