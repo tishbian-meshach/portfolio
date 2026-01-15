@@ -7,7 +7,7 @@ const AboutSection = lazy(() => import("@/components/sections/about-section").th
 const WorkSection = lazy(() => import("@/components/sections/work-section").then(module => ({ default: module.WorkSection })))
 const SkillsSection = lazy(() => import("@/components/sections/skills-section").then(module => ({ default: module.SkillsSection })))
 const ContactSection = lazy(() => import("@/components/sections/contact-section").then(module => ({ default: module.ContactSection })))
-const Footer = lazy(() => import("@/components/sections/footer").then(module => ({ default: module.Footer })))
+import { Footer } from "@/components/sections/footer"
 
 export default function App() {
   const [isNavVisible, setIsNavVisible] = useState(true)
@@ -50,8 +50,15 @@ export default function App() {
         <LazySection component={WorkSection} id="work" />
         <LazySection component={SkillsSection} id="skills" />
         {/* <LazySection component={TestimonialsSection} id="testimonials" /> */}
-        <LazySection component={ContactSection} id="contact" />
-        <LazySection component={Footer} id="footer" />
+        <LazySection 
+          component={() => (
+            <>
+              <ContactSection />
+              <Footer />
+            </>
+          )} 
+          id="contact" 
+        />
       </main>
       <GlobalNav isVisible={isNavVisible} />
     </>

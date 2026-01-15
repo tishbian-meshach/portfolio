@@ -85,6 +85,7 @@ export function FloatingDock({ items, resumeItem, className }: FloatingDockProps
                 )}
                 animate={{
                   y: hoveredIndex === index ? -8 : 0,
+                  z: 0,
                 }}
                 transition={{
                   type: "spring",
@@ -92,6 +93,7 @@ export function FloatingDock({ items, resumeItem, className }: FloatingDockProps
                   damping: 20,
                 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ willChange: 'transform' }}
               >
                 {item.icon}
               </motion.a>
@@ -137,6 +139,7 @@ export function FloatingDock({ items, resumeItem, className }: FloatingDockProps
                 )}
                 animate={{
                   y: resumeHovered ? -8 : 0,
+                  z: 0,
                 }}
                 transition={{
                   type: "spring",
@@ -144,6 +147,7 @@ export function FloatingDock({ items, resumeItem, className }: FloatingDockProps
                   damping: 20,
                 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ willChange: 'transform' }}
               >
                 {resumeItem.icon}
               </motion.a>

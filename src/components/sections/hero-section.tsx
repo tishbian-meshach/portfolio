@@ -61,7 +61,7 @@ export function HeroSection() {
         </h1>
 
         <div
-          className="text-xl md:text-2xl text-sky-300 font-thin mb-8 h-8"
+          className="text-xl md:text-2xl font-thin mb-8 h-8"
           style={{ "--stagger-delay": "1" } as React.CSSProperties}
         >
           <FlipWords words={roles} className="text-sky-300" />

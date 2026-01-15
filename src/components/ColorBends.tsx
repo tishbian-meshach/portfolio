@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import './ColorBends.css';
 
@@ -137,6 +137,23 @@ export default function ColorBends({
   const pointerTargetRef = useRef<THREE.Vector2>(new THREE.Vector2(0, 0));
   const pointerCurrentRef = useRef<THREE.Vector2>(new THREE.Vector2(0, 0));
   const pointerSmoothRef = useRef<number>(8);
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Visibility detection to pause/resume animation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setIsVisible(entries[0].isIntersecting);
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current!;
@@ -175,7 +192,9 @@ export default function ColorBends({
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
       powerPreference: 'high-performance',
-      alpha: true
+      alpha: true,
+      stencil: false,
+      depth: false
     });
     rendererRef.current = renderer;
     (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
@@ -184,6 +203,8 @@ export default function ColorBends({
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     renderer.domElement.style.display = 'block';
+    renderer.domElement.style.willChange = 'transform';
+    renderer.domElement.style.transform = 'translate3d(0, 0, 0)';
     container.appendChild(renderer.domElement);
 
     const clock = new THREE.Clock();
@@ -238,6 +259,25 @@ export default function ColorBends({
       }
     };
   }, []);
+
+  // Pause/resume animation based on visibility
+  useEffect(() => {
+    const renderer = rendererRef.current;
+    if (!renderer) return;
+
+    if (isVisible) {
+      // Force a resize to ensure canvas is properly sized
+      const container = containerRef.current;
+      if (container) {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h, false);
+        if (materialRef.current) {
+          (materialRef.current.uniforms.uCanvas.value as THREE.Vector2).set(w, h);
+        }
+      }
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     const material = materialRef.current;

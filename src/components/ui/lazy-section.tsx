@@ -14,41 +14,34 @@ export function LazySection({
   component: Component,
   id,
   className = "",
-  rootMargin = "200px"
+  rootMargin = "50px"
 }: LazySectionProps) {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const observerRef = useRef<IntersectionObserver | null>(null)
-
-  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !isLoaded) {
-        setIsLoaded(true)
-        if (observerRef.current) {
-          observerRef.current.disconnect()
-        }
-      }
-    })
-  }, [isLoaded])
 
   useEffect(() => {
     const element = ref.current
     if (!element) return
 
-    observerRef.current = new IntersectionObserver(handleIntersection, {
-      rootMargin,
-      threshold: 0.01 // Trigger as soon as 1% is visible
-    })
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Mount when entering viewport, unmount when leaving
+          setIsVisible(entry.isIntersecting)
+        })
+      },
+      {
+        rootMargin,
+        threshold: 0.01
+      }
+    )
 
-    observerRef.current.observe(element)
+    observer.observe(element)
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-        observerRef.current = null
-      }
+      observer.disconnect()
     }
-  }, [rootMargin, handleIntersection])
+  }, [rootMargin])
 
   return (
     <div
@@ -56,18 +49,16 @@ export function LazySection({
       id={id}
       className={className}
       style={{
-        minHeight: isLoaded ? 'auto' : '100vh',
-        contentVisibility: isLoaded ? 'auto' : 'hidden',
-        containIntrinsicSize: '1px 1000px',
-        contain: 'paint layout'
+        minHeight: '100vh',
+        contain: 'layout style paint'
       }}
     >
-      {isLoaded ? (
-        <React.Suspense fallback={<div className="w-full h-full min-h-[50vh]" />}>
-          <Component />
+      {isVisible ? (
+        <React.Suspense fallback={<div className="w-full h-full min-h-[50vh] bg-black" />}>
+          <Component key={id} /> {/* key prop forces fresh mount each time */}
         </React.Suspense>
       ) : (
-        <div className="w-full h-full min-h-[50vh]" />
+        <div className="w-full h-full min-h-[50vh] bg-black" />
       )}
     </div>
   )

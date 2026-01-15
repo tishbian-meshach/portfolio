@@ -145,9 +145,20 @@
   }
 }
 
-/* Performance optimizations */
+/* Performance optimizations - GPU acceleration */
 * {
   will-change: auto;
+}
+
+/* Force GPU acceleration for animated elements */
+.section-animated,
+.section-content,
+[class*="animate-"],
+[class*="motion-"],
+canvas {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .section-animated {
@@ -156,14 +167,16 @@
 
 /* Heavy animation optimizations */
 .animate-orbit {
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  will-change: transform;
 }
 
 .animate-marquee,
 .animate-marquee-vertical {
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Section Animation Classes */
@@ -173,20 +186,20 @@
 
 .section-animated .section-content {
   opacity: 0;
-  transform: translateY(30px) scale(0.95);
+  transform: translate3d(0, 30px, 0) scale(0.95);
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 
 .section-animated.in-view .section-content {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
   animation: jump-fade-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .section-animated.out-of-view .section-content {
   opacity: 0.3;
-  transform: translateY(-10px) scale(0.98);
+  transform: translate3d(0, -10px, 0) scale(0.98);
   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   will-change: auto;
 }
@@ -194,12 +207,12 @@
 /* Hero section is always visible */
 .section-animated.hero-section .section-content {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .section-animated.hero-section.out-of-view .section-content {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
   animation: none;
 }
 
@@ -231,12 +244,12 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 

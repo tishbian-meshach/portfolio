@@ -308,10 +308,18 @@ export default function FloatingLines({
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     camera.position.z = 1;
 
-    const renderer = new WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new WebGLRenderer({ 
+      antialias: false, 
+      alpha: false,
+      powerPreference: 'high-performance',
+      stencil: false,
+      depth: false
+    });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
+    renderer.domElement.style.willChange = 'transform';
+    renderer.domElement.style.transform = 'translate3d(0, 0, 0)';
     containerRef.current.appendChild(renderer.domElement);
 
     const uniforms = {
