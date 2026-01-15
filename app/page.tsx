@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/sections/hero-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { WorkSection } from "@/components/sections/work-section"
 import { SkillsSection } from "@/components/sections/skills-section"
-import { TestimonialsSection } from "@/components/sections/testimonials-section"
+// import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { Footer } from "@/components/sections/footer"
 import { LazySection } from "@/components/ui/lazy-section"
@@ -52,7 +52,7 @@ export default function Home() {
         <LazySection component={AboutSection} id="about" />
         <LazySection component={WorkSection} id="work" />
         <LazySection component={SkillsSection} id="skills" />
-        <LazySection component={TestimonialsSection} id="testimonials" />
+        {/* <LazySection component={TestimonialsSection} id="testimonials" /> */}
         <Suspense fallback={<div className="min-h-screen bg-black" />}>
           <LazySection component={ContactSection} id="contact" />
         </Suspense>

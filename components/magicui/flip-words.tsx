@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion, useInView } from "motion/react"
+import { useCallback, useEffect, useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 export const FlipWords = ({
@@ -23,15 +23,12 @@ export const FlipWords = ({
     setIsAnimating(true)
   }, [currentWord, words])
 
-  const ref = useRef(null)
-  const isInView = useInView(ref)
-
   useEffect(() => {
-    if (!isAnimating && isInView)
+    if (!isAnimating)
       setTimeout(() => {
         startAnimation()
       }, duration)
-  }, [isAnimating, duration, startAnimation, isInView])
+  }, [isAnimating, duration, startAnimation])
 
   return (
     <AnimatePresence
