@@ -37,5 +37,9 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/components/ui/chart.tsx",
+    "src/components/ui/resizable.tsx"
   ]
 }
