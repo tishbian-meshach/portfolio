@@ -23,7 +23,10 @@ export function SplineViewer({
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        setShouldLoad(true)
+        // Delay loading slightly to prioritize LCP content (text)
+        setTimeout(() => {
+          setShouldLoad(true)
+        }, 1000)
         observer.disconnect()
       }
     }, { rootMargin: "100px" })

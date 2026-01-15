@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback, type ComponentType } from "react"
+import React, { useEffect, useRef, useState, useCallback, type ComponentType } from "react"
 
 interface LazySectionProps {
   component: ComponentType
@@ -62,7 +62,13 @@ export function LazySection({
         contain: 'paint layout'
       }}
     >
-      {isLoaded ? <Component /> : <div className="w-full h-full min-h-[50vh]" />}
+      {isLoaded ? (
+        <React.Suspense fallback={<div className="w-full h-full min-h-[50vh]" />}>
+          <Component />
+        </React.Suspense>
+      ) : (
+        <div className="w-full h-full min-h-[50vh]" />
+      )}
     </div>
   )
 }

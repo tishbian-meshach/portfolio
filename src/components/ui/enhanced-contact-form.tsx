@@ -59,7 +59,7 @@ export const EnhancedContactForm = memo(function EnhancedContactForm() {
   }, [])
 
   return (
-    <MagicCard className="max-w-md w-full mx-auto">
+    <MagicCard className="max-w-md w-full mx-auto bg-black/70">
       <div className="p-8 relative">
         <div className="text-center mb-8">
           <motion.div

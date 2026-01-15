@@ -4,8 +4,7 @@ import type React from "react"
 
 import { FlipWords } from "@/components/magicui/flip-words"
 import { RainbowButton } from "@/components/magicui/rainbow-button"
-import { SplineViewer } from "@/components/ui/spline-viewer"
-import { StripeBgGuides } from "@/components/ui/stripe-bg-guides"
+import ColorBends from "@/components/ColorBends"
 import { Download } from "lucide-react"
 
 const roles = ["UI/UX Designer", "Graphic Designer", "AI-Augmented Developer", "Creative Technologist"]
@@ -16,41 +15,26 @@ export function HeroSection() {
       id="home"
       className="section-animated hero-section in-view relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Stripe Background Guides - Deepest layer */}
-      <div className="absolute inset-0 z-0 ">
-        <div className="md:hidden block h-full w-full">
-          <StripeBgGuides
-            columnCount={4}
-            animated={true}
-            animationDuration={8}
-            glowColor="#38bdf8"
-            randomize={true}
-            randomInterval={3000}
-            contained={true}
-            darkMode={true}
-            glowOpacity={1.2}
-          />
-        </div>
-        <div className="hidden md:block h-full w-full">
-          <StripeBgGuides
-            columnCount={8}
-            animated={true}
-            animationDuration={8}
-            glowColor="#38bdf8"
-            randomize={true}
-            randomInterval={3000}
-            contained={true}
-            darkMode={true}
-            glowOpacity={1.2}
-          />
-        </div>
+      {/* ColorBends Background */}
+      <div className="absolute inset-0 z-0">
+        <ColorBends
+          rotation={360}
+          speed={0.55}
+          colors={["#0f005c", "#112579", "#75e3ff"]}
+          transparent
+          autoRotate={0.35}
+          scale={1.7}
+          frequency={1.8}
+          warpStrength={1}
+          mouseInfluence={0.7}
+          parallax={0.7}
+          noise={0}
+        />
       </div>
 
       <div className="absolute inset-0 bg-black/20 z-20" />
       {/* Blue light gradient background */}
       <div className="absolute hidden inset-0 bg-gradient-to-br from-sky-500/10 via-black/10 to-transparent mix-blend-screen z-5" />
-
-
 
       <div
         className=" flex-col hidden absolute top-8 z-30 right-10 sm:flex-row gap-10  justify-center items-center"
@@ -62,18 +46,9 @@ export function HeroSection() {
         </RainbowButton>
       </div>
 
-      {/* Spline 3D Model */}
-      <div className="absolute inset-0 z-10">
-        <SplineViewer
-          scene="https://prod.spline.design/J-8S-fPcOC05m2ew/scene.splinecode"
-          className=""
-          loadingAnimType="spinner-small-dark"
-        />
-      </div>
-
       {/* Stronger bottom fade */}
       <div className="absolute inset-0 z-20 pointer-events-none">
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-black/100 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-80 bg-gradient-to-t from-black/100 via-black/80 to-transparent" />
       </div>
 
       {/* Content */}

@@ -4,8 +4,7 @@ import { ScrollAnimation } from "@/components/ui/scroll-animation";
 import { EnhancedContactForm } from "@/components/ui/enhanced-contact-form";
 import { motion } from "framer-motion";
 import { lazy, Suspense, memo } from "react";
-import { RetroGrid } from "@/components/magicui/retro-grid";
-import Ballpit from "@/components/magicui/Ballpit/Ballpit";
+import FloatingLines from "@/components/FloatingLines";
 
 const Globe = lazy(() => import("@/components/magicui/globe"));
 
@@ -16,8 +15,28 @@ export const ContactSection = memo(function ContactSection() {
       className="py-20 bg-black w-full relative min-h-screen"
     >
       {/* Ballpit Background */}
-      <div className="absolute inset-0 z-10 hidden md:block">
-        <Ballpit />
+      {/* FloatingLines Background */}
+      <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
+        <FloatingLines
+          linesGradient={["#474df5", "#2F4BC0", "#47d2f5"]}
+          animationSpeed={3}
+          interactive
+          bendRadius={2.5}
+          bendStrength={2}
+          mouseDamping={0.2}
+          parallax
+          parallaxStrength={0.25}
+        />
+      </div>
+
+      {/* Stronger top fade */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-80 bg-gradient-to-b from-black/100 via-black/80 to-transparent" />
+      </div>
+
+      {/* Stronger bottom fade */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-full h-80 bg-gradient-to-t from-black/100 via-black/80 to-transparent" />
       </div>
 
       {/* Top Content */}
